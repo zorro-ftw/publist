@@ -5,6 +5,7 @@ import 'package:publist/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:publist/screens/main_screen.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String id = 'login_screen';
@@ -18,6 +19,24 @@ class _LoginScreenState extends State<LoginScreen> {
   final _auth = FirebaseAuth.instance;
   String email;
   String password;
+
+  Future<UserCredential> signInWithGoogle() async {
+    // Trigger the authentication flow
+    final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
+
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication googleAuth =
+        await googleUser.authentication;
+
+    // Create a new credential
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+
+    // Once signed in, return the UserCredential
+    return await _auth.signInWithCredential(credential);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,6 +111,26 @@ class _LoginScreenState extends State<LoginScreen> {
                 color: Color(0xFFD08933),
                 onPressed: () {
                   Navigator.pushNamed(context, RegistrationScreen.id);
+                },
+              ),
+              RoundedButton(
+                title: 'Google',
+                color: Color(0xFFD08933),
+                onPressed: () async {
+                  try {
+                    final user = await signInWithGoogle();
+                    if (user != null) {
+                      Navigator.pushNamed(context, MainScreen.id);
+                    }
+
+                    setState(() {
+                      showSpinner = false;
+                    });
+                  } catch (e) {
+                    print(e);
+                  }
+
+                  //Navigator.pushNamed(context, RegistrationScreen.id);
                 },
               ),
             ],
