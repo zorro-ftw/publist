@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "645474957214",
+    "project_id": "publist-41405",
+    "storage_bucket": "publist-41405.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:645474957214:android:fef99ee73449da5cf3488f",
+        "android_client_info": {
+          "package_name": "tech.yellow.publist"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "645474957214-ls3tpo5312h6ijijqdl4kfm775s9pc69.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACUD003zasEJc9sP5OUS9uejB3WvAk4wg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "645474957214-ls3tpo5312h6ijijqdl4kfm775s9pc69.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
