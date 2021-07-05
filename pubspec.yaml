@@ -26,6 +26,8 @@ dependencies:
   flutter_slidable: ^0.6.0
   intl: ^0.17.0
   google_sign_in: ^5.0.3
+  flutter_login_facebook: ^1.0.1
+  flutter_facebook_auth: ^3.5.0
 
 dev_dependencies:
   flutter_test:

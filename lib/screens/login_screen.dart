@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:publist/screens/main_screen.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String id = 'login_screen';
@@ -36,6 +37,21 @@ class _LoginScreenState extends State<LoginScreen> {
 
     // Once signed in, return the UserCredential
     return await _auth.signInWithCredential(credential);
+  }
+
+  Future<UserCredential> signInWithFacebook() async {
+    final LoginResult result = await FacebookAuth.instance.login();
+    // by default we request the email and the public profile
+// or FacebookAuth.i.login()
+    if (result.status == LoginStatus.success) {
+      // you are logged
+      final AccessToken accessToken = result.accessToken;
+      final facebookAuthCredential =
+          FacebookAuthProvider.credential(accessToken.token);
+      return await _auth.signInWithCredential(facebookAuthCredential);
+    } else {
+      return null;
+    }
   }
 
   @override
@@ -122,15 +138,30 @@ class _LoginScreenState extends State<LoginScreen> {
                     if (user != null) {
                       Navigator.pushNamed(context, MainScreen.id);
                     }
-
                     setState(() {
                       showSpinner = false;
                     });
                   } catch (e) {
                     print(e);
                   }
-
-                  //Navigator.pushNamed(context, RegistrationScreen.id);
+                },
+              ),
+              RoundedButton(
+                title: 'Facebook',
+                color: Color(0xFFD08933),
+                onPressed: () async {
+                  try {
+                    final user = await signInWithFacebook();
+                    if (user != null) {
+                      Navigator.pushNamed(context, MainScreen.id);
+                      print(user.user.displayName);
+                    }
+                    setState(() {
+                      showSpinner = false;
+                    });
+                  } catch (e) {
+                    print(e);
+                  }
                 },
               ),
             ],
