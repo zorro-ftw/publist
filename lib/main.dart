@@ -7,7 +7,7 @@ import 'package:publist/screens/registration_screen.dart';
 import 'package:publist/screens/chat_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:publist/screens/main_screen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:publist/models/user_group_data.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,8 +19,15 @@ class Publist extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => TaskData(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => TaskData(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => UserGroupData(),
+        )
+      ],
       child: MaterialApp(
         initialRoute: LoginScreen.id,
         routes: {

@@ -22,7 +22,9 @@ class _GroupTileState extends State<GroupTile> {
       title: Text(
         widget.groupTitle,
       ),
-      subtitle: Text(widget.groupDescription),
+      subtitle: widget.groupDescription == null
+          ? null
+          : Text(widget.groupDescription),
     );
   }
 }

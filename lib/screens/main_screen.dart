@@ -54,10 +54,7 @@ class _MainScreenState extends State<MainScreen> {
                 now: DateTime.now(),
               ),
               // GroupScreen(),
-              ChangeNotifierProvider(
-                create: (context) => UserGroupData(),
-                child: GroupsListedScreen(),
-              ),
+              GroupsListedScreen(),
               Icon(Icons.directions_bike)
             ],
           ),

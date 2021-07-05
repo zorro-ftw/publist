@@ -15,6 +15,9 @@ class UserGroupData extends ChangeNotifier {
     Group(
         name: 'AAAL--3',
         description: 'Liseli kekoların düzenli buluşma grubu xD--3'),
+    Group(
+      name: 'AAAL--4',
+    )
   ];
 
   UnmodifiableListView<Group> get groups {
@@ -25,9 +28,10 @@ class UserGroupData extends ChangeNotifier {
     return _groups.length;
   }
 
-  void addGroup(String newGroupTitle) {
-    final group = Group(name: newGroupTitle);
+  void addGroup(String newGroupTitle, String newGroupDescription) {
+    final group = Group(name: newGroupTitle, description: newGroupDescription);
     _groups.add(group);
+    print('group added');
     notifyListeners();
   }
 
