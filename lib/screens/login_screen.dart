@@ -7,6 +7,7 @@ import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:publist/screens/main_screen.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:auth_buttons/auth_buttons.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String id = 'login_screen';
@@ -99,7 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 24.0,
               ),
               RoundedButton(
-                title: 'Log In',
+                title: 'Sign In',
                 color: Color(0xFFCE9F35),
                 onPressed: () async {
                   setState(() {
@@ -122,16 +123,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   }
                 },
               ),
-              RoundedButton(
-                title: 'Register',
-                color: Color(0xFFD08933),
-                onPressed: () {
-                  Navigator.pushNamed(context, RegistrationScreen.id);
-                },
+              SizedBox(
+                height: 10,
               ),
-              RoundedButton(
-                title: 'Google',
-                color: Color(0xFFD08933),
+              GoogleAuthButton(
+                //title: 'Google',
+                //color: Color(0xFFD08933),
                 onPressed: () async {
                   try {
                     final user = await signInWithGoogle();
@@ -146,9 +143,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   }
                 },
               ),
-              RoundedButton(
-                title: 'Facebook',
-                color: Color(0xFFD08933),
+              SizedBox(
+                height: 10,
+              ),
+              FacebookAuthButton(
+                //title: 'Facebook',
+                //color: Color(0xFFD08933),
                 onPressed: () async {
                   try {
                     final user = await signInWithFacebook();
@@ -162,6 +162,16 @@ class _LoginScreenState extends State<LoginScreen> {
                   } catch (e) {
                     print(e);
                   }
+                },
+              ),
+              SizedBox(
+                height: 25,
+              ),
+              RoundedButton(
+                title: "Dont have an account? Sign Up",
+                color: Colors.grey,
+                onPressed: () {
+                  Navigator.pushNamed(context, RegistrationScreen.id);
                 },
               ),
             ],
