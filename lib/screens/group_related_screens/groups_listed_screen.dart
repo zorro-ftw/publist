@@ -1,33 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:publist/constants.dart';
-import 'package:publist/widgets/tasks_list.dart';
-import 'package:publist/screens/add_task_screen.dart';
 import 'package:provider/provider.dart';
-import 'package:publist/models/task_data.dart';
-import 'package:publist/services/date_selection_service.dart';
-import 'package:intl/intl.dart';
+import 'package:publist/models/user_group_data.dart';
+import 'package:publist/widgets/groups_list.dart';
 
-class TodayScreen extends StatefulWidget {
-  TodayScreen({@required this.now});
-  final DateTime now;
-
+class GroupsListedScreen extends StatefulWidget {
   @override
-  _TodayScreenState createState() => _TodayScreenState();
+  _GroupsListedScreenState createState() => _GroupsListedScreenState();
 }
 
-class _TodayScreenState extends State<TodayScreen> {
-  String displayedDate;
-
-  @override
-  void initState() {
-    super.initState();
-    getDate(widget.now);
-  }
-
-  void getDate(DateTime inputDate) {
-    displayedDate = DateFormat.MMMEd().format(inputDate);
-  }
-
+class _GroupsListedScreenState extends State<GroupsListedScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,19 +18,7 @@ class _TodayScreenState extends State<TodayScreen> {
           backgroundColor: kMainThemeColor,
           child: Icon(Icons.add),
           onPressed: () {
-            showModalBottomSheet(
-              isScrollControlled: true,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20),
-                ),
-              ),
-              context: context,
-              builder: (BuildContext context) => SingleChildScrollView(
-                child: AddTaskScreen(),
-              ),
-            );
+            //TODO - Yeni grup kurma fonksiyonu eklenecek. user_group_data'daki addGroup fonksiyonu da burada çağırılacak.
           }),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,7 +46,7 @@ class _TodayScreenState extends State<TodayScreen> {
                     // );
                   },
                   child: Text(
-                    displayedDate,
+                    'My Groups',
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 25.0,
@@ -90,7 +60,7 @@ class _TodayScreenState extends State<TodayScreen> {
                 Padding(
                   padding: const EdgeInsets.only(left: 8.0),
                   child: Text(
-                    '${Provider.of<TaskData>(context).taskCount} Tasks',
+                    '${Provider.of<UserGroupData>(context).groupCount} Groups',
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 18,
@@ -104,7 +74,7 @@ class _TodayScreenState extends State<TodayScreen> {
           Expanded(
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 8.0),
-              child: TasksList(),
+              child: GroupsList(),
             ),
           ),
           kDivider,

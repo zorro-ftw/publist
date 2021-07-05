@@ -33,3 +33,13 @@ const kTextFieldDecoration = InputDecoration(
     borderRadius: BorderRadius.all(Radius.circular(32.0)),
   ),
 );
+
+const kDivider = Divider(
+  color: Color(0xFFBDBDBD),
+  height: 10,
+  thickness: 2,
+  indent: 10,
+  endIndent: 10,
+);
+
+const kMainThemeColor = Color(0xFFCE9F35);
