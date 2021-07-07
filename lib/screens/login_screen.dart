@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:publist/auth_service.dart';
+import 'package:publist/firebase services/auth_service.dart';
 import 'package:publist/components/rounded_button.dart';
 import 'package:publist/models/user_group_data.dart';
 import 'package:publist/screens/registration_screen.dart';
