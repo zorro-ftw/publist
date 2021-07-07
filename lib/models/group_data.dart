@@ -10,14 +10,14 @@ class GroupData extends ChangeNotifier {
     return UnmodifiableListView(_groupMembers);
   }
 
+  int get memberCount {
+    return _groupMembers.length;
+  }
+
   List<String> _groupLists = ['Liste1', 'Liste2', 'Liste3'];
 
   UnmodifiableListView<String> get groupLists {
     return UnmodifiableListView(_groupLists);
-  }
-
-  int get memberCount {
-    return _groupMembers.length;
   }
 
   int get listCount {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:publist/constants.dart';
 import 'package:publist/models/user_group_data.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class CreateGroupScreen extends StatelessWidget {
   @override
@@ -61,9 +62,9 @@ class CreateGroupScreen extends StatelessWidget {
                   color: Colors.white,
                 ),
               ),
-              onPressed: () {
+              onPressed: () async {
                 if (newGroupTitle != null) {
-                  Provider.of<UserGroupData>(context, listen: false)
+                  await Provider.of<UserGroupData>(context, listen: false)
                       .addGroup(newGroupTitle, newGroupDescription);
 
                   Navigator.pop(context);

@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:publist/models/group.dart';
 import 'package:publist/constants.dart';
+import 'package:publist/firebase services/data_service.dart';
 
 class GroupMainScreen extends StatefulWidget {
   static const String id = 'group_main_screen';
 
-  final String groupName;
-  GroupMainScreen({this.groupName});
+  final String groupID;
+  GroupMainScreen({this.groupID});
 
   @override
   _GroupMainScreenState createState() => _GroupMainScreenState();
 }
 
 class _GroupMainScreenState extends State<GroupMainScreen> {
+  // void
+  // String groupName=DataService().getCollectionByIdQuery(collectionID: widget.groupID,collection: 'groups')
+
+  //TODO - YARIM KALDI, grup id kullanarak grup name almam lazım, yeni bir group_main_data dosyası gerekecek gibi görünüyor.
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +55,7 @@ class _GroupMainScreenState extends State<GroupMainScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      widget.groupName,
+                      'Grup Adı', //widget.groupName,
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 25.0,

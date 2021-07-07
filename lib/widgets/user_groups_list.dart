@@ -18,7 +18,7 @@ class GroupsList extends StatelessWidget {
               groupDescription: group.description,
               onTapCallback: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return GroupMainScreen(groupName: group.name);
+                  return GroupMainScreen(groupID: group.groupID);
                 }));
               },
             );

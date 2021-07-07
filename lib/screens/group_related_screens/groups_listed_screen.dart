@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:publist/constants.dart';
 import 'package:provider/provider.dart';
 import 'package:publist/models/user_group_data.dart';
-import 'package:publist/widgets/groups_list.dart';
+import 'package:publist/widgets/user_groups_list.dart';
 import 'package:publist/screens/group_related_screens/create_group_screen.dart';
 
 class GroupsListedScreen extends StatefulWidget {
@@ -12,6 +13,12 @@ class GroupsListedScreen extends StatefulWidget {
 }
 
 class _GroupsListedScreenState extends State<GroupsListedScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<UserGroupData>(context, listen: false).getUserGroups();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
