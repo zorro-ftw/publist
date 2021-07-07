@@ -29,6 +29,7 @@ dependencies:
   flutter_login_facebook: ^1.0.1
   flutter_facebook_auth: ^3.5.0
   auth_buttons: ^1.0.1+4
+  string_validator: ^0.3.0
 
 dev_dependencies:
   flutter_test:
