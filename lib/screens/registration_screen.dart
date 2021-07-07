@@ -20,8 +20,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   String password;
   String passwordr;
   String name;
-  String emailValidate, nameValidate;
-  bool passwordValidate;
+  String emailValidate, nameValidate, passwordValidate;
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +97,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 onPressed: () async {
                   nameValidate = NameValidator.validate(name);
                   emailValidate = EmailValidator.validate(email);
-                  passwordValidate = PasswordValidator.validate(password);
+                  passwordValidate =
+                      PasswordValidator.validate(password, passwordr);
                   if (nameValidate != null) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
@@ -111,11 +111,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         content: Text(emailValidate),
                       ),
                     );
-                  } else if (passwordValidate == false) {
+                  } else if (passwordValidate != null) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content: Text(
-                            "Password must contain at least 8 characters, a letter, number and special character!"),
+                        content: Text(passwordValidate),
                       ),
                     );
                   } else {
@@ -133,8 +132,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       setState(() {
                         showSpinner = false;
                       });
-                    } catch (e) {
-                      print(e);
+                    } on FirebaseAuthException catch (e) {
+                      print(e.toString());
+                      setState(() {
+                        showSpinner = false;
+                      });
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(e.message),
+                        ),
+                      );
                     }
                   }
                 },

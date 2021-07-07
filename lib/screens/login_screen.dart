@@ -104,8 +104,16 @@ class _LoginScreenState extends State<LoginScreen> {
                     setState(() {
                       showSpinner = false;
                     });
-                  } catch (e) {
-                    print(e);
+                  } on FirebaseAuthException catch (e) {
+                    print(e.toString());
+                    setState(() {
+                      showSpinner = false;
+                    });
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(e.message),
+                      ),
+                    );
                   }
                 },
               ),
@@ -125,8 +133,16 @@ class _LoginScreenState extends State<LoginScreen> {
                     setState(() {
                       showSpinner = false;
                     });
-                  } catch (e) {
-                    print(e);
+                  } on FirebaseAuthException catch (e) {
+                    print(e.toString());
+                    setState(() {
+                      showSpinner = false;
+                    });
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(e.message),
+                      ),
+                    );
                   }
                 },
               ),

@@ -70,12 +70,18 @@ class NameValidator {
 }
 
 class PasswordValidator {
-  static bool validate(String value) {
-    if (value == null) {
-      return false;
+  static String validate(String value, value2) {
+    if (value == null || value.isEmpty) {
+      return "Şifre Boş Olamaz!";
     }
-    String pattern = r'^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~,]).{8,}$';
+    if (value2 != value) {
+      return "Şifreler Eşleşmiyor!";
+    }
+    String pattern = r'^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~,.]).{8,}$';
     RegExp regExp = new RegExp(pattern);
-    return regExp.hasMatch(value);
+    if (!regExp.hasMatch(value)) {
+      return "Password must contain at least 8 characters, a letter, number and special character!";
+    }
+    return null;
   }
 }
