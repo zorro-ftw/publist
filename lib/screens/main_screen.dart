@@ -4,7 +4,6 @@ import 'package:publist/constants.dart';
 import 'package:publist/screens/today_screen.dart';
 import 'package:publist/screens/group_related_screens/groups_listed_screen.dart';
 import 'package:publist/models/user_group_data.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class MainScreen extends StatefulWidget {
   static const String id = 'main_screen';

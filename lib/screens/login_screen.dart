@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:publist/firebase services/auth_service.dart';
 import 'package:publist/components/rounded_button.dart';
 import 'package:publist/models/user_group_data.dart';
+import 'package:publist/screens/forgot_password_screen.dart';
 import 'package:publist/screens/registration_screen.dart';
 import 'package:publist/constants.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
@@ -81,8 +82,17 @@ class _LoginScreenState extends State<LoginScreen> {
                     setState(() {
                       showSpinner = false;
                     });
-                  } catch (e) {
-                    print(e);
+                  }  on FirebaseAuthException catch (e) {
+                    print(e.toString());
+                    setState(() {
+                      FocusScope.of(context).requestFocus(FocusNode());
+                      showSpinner = false;
+                    });
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(e.message),
+                      ),
+                    );
                   }
                 },
               ),
@@ -154,6 +164,16 @@ class _LoginScreenState extends State<LoginScreen> {
                 color: Colors.grey,
                 onPressed: () {
                   Navigator.pushNamed(context, RegistrationScreen.id);
+                },
+              ),
+              SizedBox(
+                height:0,
+              ),
+              RoundedButton(
+                title: "Forgot Password?",
+                color: Colors.grey,
+                onPressed: () {
+                  Navigator.pushNamed(context, ForgotPasswordScreen.id);
                 },
               ),
             ],
