@@ -127,6 +127,23 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           await _auth.createUserWithEmailAndPassword(
                               email: email, password: password);
                       if (newUser != null) {
+                        try{
+                          await newUser.user.sendEmailVerification();
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text("Verification e-mail has been sent to $email"),
+                            ),
+                          );
+                        }on FirebaseAuthException catch (e) {
+                          setState(() {
+                            FocusScope.of(context).requestFocus(FocusNode());
+                          });
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(e.message),
+                            ),
+                          );
+                        }
                         Navigator.pushNamed(context, ChatScreen.id);
                       }
                       setState(() {
