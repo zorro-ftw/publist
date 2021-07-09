@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:publist/models/group.dart';
+import 'package:provider/provider.dart';
 import 'package:publist/constants.dart';
-import 'package:publist/firebase services/data_service.dart';
+import 'package:publist/models/group_data.dart';
+import 'package:publist/screens/group_related_screens/member_management_screen.dart';
 
 class GroupMainScreen extends StatefulWidget {
   static const String id = 'group_main_screen';
@@ -14,10 +15,12 @@ class GroupMainScreen extends StatefulWidget {
 }
 
 class _GroupMainScreenState extends State<GroupMainScreen> {
-  // void
-  // String groupName=DataService().getCollectionByIdQuery(collectionID: widget.groupID,collection: 'groups')
-
-  //TODO - YARIM KALDI, grup id kullanarak grup name almam lazım, yeni bir group_main_data dosyası gerekecek gibi görünüyor.
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<GroupData>(context, listen: false)
+        .getGroupDataByGroupID(widget.groupID);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,23 +57,46 @@ class _GroupMainScreenState extends State<GroupMainScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      'Grup Adı', //widget.groupName,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 25.0,
-                        fontWeight: FontWeight.w700,
+                    Container(
+                      constraints: BoxConstraints(maxWidth: 230),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8.0)),
+                      child: Text(
+                        Provider.of<GroupData>(context).groupName,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 25.0,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ),
                     Row(
                       children: [
-                        CircleAvatar(
-                          backgroundColor: kMainThemeColor,
-                          child: Icon(
-                            Icons.group,
-                            size: 24,
-                            color: Colors.white,
+                        GestureDetector(
+                          child: CircleAvatar(
+                            backgroundColor: kMainThemeColor,
+                            child: Icon(
+                              Icons.group,
+                              size: 24,
+                              color: Colors.white,
+                            ),
                           ),
+                          onTap: () {
+                            showModalBottomSheet(
+                              isScrollControlled: true,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(20),
+                                  topRight: Radius.circular(20),
+                                ),
+                              ),
+                              context: context,
+                              builder: (BuildContext context) =>
+                                  SingleChildScrollView(
+                                child: MemberManagementScreen(),
+                              ),
+                            );
+                          },
                         ),
                         SizedBox(
                           width: 8,
@@ -105,7 +131,7 @@ class _GroupMainScreenState extends State<GroupMainScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      '2 Lists',
+                      '${Provider.of<GroupData>(context).listCount} Lists',
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 18.0,

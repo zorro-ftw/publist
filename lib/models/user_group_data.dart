@@ -8,7 +8,6 @@ import 'package:publist/firebase services/data_service.dart';
 
 class UserGroupData extends ChangeNotifier {
   final _auth = FirebaseAuth.instance;
-  Future rawData;
   List userGroupRawData;
   List newGroupRawData;
 
@@ -75,6 +74,7 @@ class UserGroupData extends ChangeNotifier {
   }
 
   void deleteGroup(Group group) {
+    //TODO - Firebase'den de çıkarması lazım, henüz eklenmedi.
     _groups.remove(group);
     notifyListeners();
   }

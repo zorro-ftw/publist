@@ -50,10 +50,11 @@ class DataService {
     return queryOutputData.docs;
   }
 
-  Future getCollectionByIdQuery(
-      {String collectionID, String collection}) async {
+  Future<Map> getCollectionByIdQuery(
+      {String documentID, String collection}) async {
     final queryOutputData =
-        await firestore.collection(collection).doc(collectionID).get();
-    return queryOutputData;
+        await firestore.collection(collection).doc(documentID).get();
+
+    return queryOutputData.data();
   }
 }

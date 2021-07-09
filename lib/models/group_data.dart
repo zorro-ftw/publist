@@ -1,26 +1,39 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:publist/models/group.dart';
-import 'dart:collection';
+import 'package:publist/firebase services/data_service.dart';
 
 class GroupData extends ChangeNotifier {
-  List<String> _groupMembers = ['Ahmet', 'Mehmet', 'Ayşe', 'Fatma'];
+  Group currentGroup;
 
-  UnmodifiableListView<String> get groupMembers {
-    return UnmodifiableListView(_groupMembers);
+  Future getGroupDataByGroupID(String groupID) async {
+    var dummyQueryOutput = await DataService()
+        .getCollectionByIdQuery(documentID: groupID, collection: 'groups');
+
+    currentGroup = Group(
+        groupLists: dummyQueryOutput['groupLists'],
+        groupID: groupID,
+        groupCreatorID: dummyQueryOutput['groupCreatorID'],
+        groupMembers: dummyQueryOutput['groupMembers'],
+        name: dummyQueryOutput['groupName'],
+        description: dummyQueryOutput['groupDescription'],
+        createdAt: dummyQueryOutput['createdAt']);
+
+    notifyListeners();
+  }
+
+  List get groupLists {
+    return currentGroup.groupLists;
+  }
+
+  String get groupName {
+    return currentGroup.name;
   }
 
   int get memberCount {
-    return _groupMembers.length;
-  }
-
-  List<String> _groupLists = ['Liste1', 'Liste2', 'Liste3'];
-
-  UnmodifiableListView<String> get groupLists {
-    return UnmodifiableListView(_groupLists);
+    return currentGroup.groupMembers.length;
   }
 
   int get listCount {
-    return _groupLists.length;
+    return currentGroup.groupLists.length;
   }
 }
