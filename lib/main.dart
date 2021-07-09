@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:publist/models/task_data.dart';
+import 'package:publist/screens/forgot_password_screen.dart';
 import 'package:publist/screens/group_related_screens/group_main_screen.dart';
 import 'package:publist/screens/login_screen.dart';
 import 'package:publist/screens/registration_screen.dart';
@@ -40,6 +41,7 @@ class Publist extends StatelessWidget {
           LoginScreen.id: (context) => LoginScreen(),
           RegistrationScreen.id: (context) => RegistrationScreen(),
           ChatScreen.id: (context) => ChatScreen(),
+          ForgotPasswordScreen.id:(context)=>ForgotPasswordScreen(),
         },
       ),
     );

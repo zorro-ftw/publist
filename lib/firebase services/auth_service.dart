@@ -39,6 +39,9 @@ class AuthService {
       return await _auth.signInWithCredential(facebookAuthCredential);
     }
   }
+  Future sendPasswordResetEmail(String email)async{
+    return _auth.sendPasswordResetEmail(email:email);
+  }
 }
 
 class EmailValidator {
