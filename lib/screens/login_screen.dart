@@ -78,6 +78,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         await _auth.signInWithEmailAndPassword(email, password);
                     if (user != null) {
                       Navigator.pushNamed(context, MainScreen.id);
+                      print(user.user.emailVerified);
                     }
                     setState(() {
                       showSpinner = false;
@@ -107,9 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     final user = await _auth.signInWithGoogle();
                     if (user != null) {
                       Navigator.pushNamed(context, MainScreen.id);
-                      print(user.user.displayName);
-                      print(user.user.email);
-                      print(user.user.uid);
+                      print(user.user.emailVerified);
                     }
                     setState(() {
                       showSpinner = false;
