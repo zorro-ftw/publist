@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:publist/models/group.dart';
 import 'package:publist/firebase services/data_service.dart';
@@ -36,4 +37,15 @@ class GroupData extends ChangeNotifier {
   int get listCount {
     return currentGroup.groupLists.length;
   }
+
+  // Future<Map<String, List>> get memberInfo async{
+  //   Map memberInfo;
+  //   for(String member in currentGroup.groupMembers){
+  //     Map memberInfo={member:[UserInfo('member').displayName]
+  //
+  //     }
+  //   }
+  //   return memberInfo;
+  //   //TODO - Üyelerin profil fotoğrafları ve isimleri alınacak
+  // }
 }

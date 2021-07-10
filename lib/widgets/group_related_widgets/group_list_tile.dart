@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'package:publist/screens/group_related_screens/group_main_screen.dart';
+/// group_main_list Widget'ının listelemede kullandığı tile.
+/// Grup içindeki her bir liste için bir tile oluşturulur.
 
 class GroupListTile extends StatefulWidget {
   final String listTitle;

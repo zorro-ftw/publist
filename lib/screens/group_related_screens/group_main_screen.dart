@@ -24,132 +24,136 @@ class _GroupMainScreenState extends State<GroupMainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(85),
-        child: AppBar(
-          backgroundColor: kMainThemeColor,
-          title: Padding(
-            padding: const EdgeInsets.only(top: 10.0),
-            child: Text(
-              'PUBLIST',
-              style: TextStyle(color: Colors.white, fontSize: 24),
+    ///Grup datasını çekmek biraz zaman aldığı için o gelene kadar boş ekran gösterecek, sonra grup bilgileriyle birlkte ekranı yenileyecek.
+    if (Provider.of<GroupData>(context).groupName == null) {
+      return Container();
+    } else {
+      return Scaffold(
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(85),
+          child: AppBar(
+            backgroundColor: kMainThemeColor,
+            title: Padding(
+              padding: const EdgeInsets.only(top: 10.0),
+              child: Text(
+                'PUBLIST',
+                style: TextStyle(color: Colors.white, fontSize: 24),
+              ),
             ),
+            centerTitle: true,
           ),
-          centerTitle: true,
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-          backgroundColor: kMainThemeColor,
-          child: Icon(Icons.add),
-          onPressed: () {
-            //TODO Yeni grup listesi oluşturma eklenecek.
-          }),
-      backgroundColor: Colors.white,
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            padding: EdgeInsets.only(left: 18, right: 10, top: 15, bottom: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      constraints: BoxConstraints(maxWidth: 230),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8.0)),
-                      child: Text(
-                        Provider.of<GroupData>(context).groupName,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 25.0,
-                          fontWeight: FontWeight.w700,
+        floatingActionButton: FloatingActionButton(
+            backgroundColor: kMainThemeColor,
+            child: Icon(Icons.add),
+            onPressed: () {
+              //TODO Yeni grup listesi oluşturma eklenecek.
+            }),
+        backgroundColor: Colors.white,
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              padding:
+                  EdgeInsets.only(left: 18, right: 10, top: 15, bottom: 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        constraints: BoxConstraints(maxWidth: 230),
+                        child: Text(
+                          Provider.of<GroupData>(context).groupName,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 25.0,
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
                       ),
-                    ),
-                    Row(
-                      children: [
-                        GestureDetector(
-                          child: CircleAvatar(
+                      Row(
+                        children: [
+                          GestureDetector(
+                            child: CircleAvatar(
+                              backgroundColor: kMainThemeColor,
+                              child: Icon(
+                                Icons.group,
+                                size: 24,
+                                color: Colors.white,
+                              ),
+                            ),
+                            onTap: () {
+                              showModalBottomSheet(
+                                isScrollControlled: true,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(20),
+                                    topRight: Radius.circular(20),
+                                  ),
+                                ),
+                                context: context,
+                                builder: (BuildContext context) =>
+                                    SingleChildScrollView(
+                                  child: MemberManagementScreen(),
+                                ),
+                              );
+                            },
+                          ),
+                          SizedBox(
+                            width: 8,
+                          ),
+                          CircleAvatar(
                             backgroundColor: kMainThemeColor,
                             child: Icon(
-                              Icons.group,
+                              Icons.settings,
                               size: 24,
                               color: Colors.white,
                             ),
                           ),
-                          onTap: () {
-                            showModalBottomSheet(
-                              isScrollControlled: true,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(20),
-                                  topRight: Radius.circular(20),
-                                ),
-                              ),
-                              context: context,
-                              builder: (BuildContext context) =>
-                                  SingleChildScrollView(
-                                child: MemberManagementScreen(),
-                              ),
-                            );
-                          },
-                        ),
-                        SizedBox(
-                          width: 8,
-                        ),
-                        CircleAvatar(
-                          backgroundColor: kMainThemeColor,
-                          child: Icon(
-                            Icons.settings,
-                            size: 24,
-                            color: Colors.white,
+                          SizedBox(
+                            width: 8,
                           ),
-                        ),
-                        SizedBox(
-                          width: 8,
-                        ),
-                        CircleAvatar(
-                          backgroundColor: kMainThemeColor,
-                          child: Icon(
-                            Icons.chat,
-                            size: 24,
-                            color: Colors.white,
-                          ),
-                        )
-                      ],
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      '${Provider.of<GroupData>(context).listCount} Lists',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 18.0,
+                          CircleAvatar(
+                            backgroundColor: kMainThemeColor,
+                            child: Icon(
+                              Icons.chat,
+                              size: 24,
+                              color: Colors.white,
+                            ),
+                          )
+                        ],
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        '${Provider.of<GroupData>(context).listCount} Lists',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 18.0,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-          kDivider,
-          Expanded(
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 8.0),
+            kDivider,
+            Expanded(
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 8.0),
+              ),
             ),
-          ),
-        ],
-      ),
-    );
+          ],
+        ),
+      );
+    }
   }
 }

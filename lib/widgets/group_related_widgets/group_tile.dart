@@ -1,30 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'package:publist/screens/group_related_screens/group_main_screen.dart';
+/// user_groups_list dosyasının listeleme yaparken kullandığı group tile Widget'ı.
 
-class GroupTile extends StatefulWidget {
+class GroupTile extends StatelessWidget {
   final String groupTitle;
   final String groupDescription;
   final Function onTapCallback;
   GroupTile({this.groupTitle, this.groupDescription, this.onTapCallback});
 
   @override
-  _GroupTileState createState() => _GroupTileState();
-}
-
-class _GroupTileState extends State<GroupTile> {
-  @override
   Widget build(BuildContext context) {
     return ListTile(
-      onTap: widget.onTapCallback,
+      onTap: onTapCallback,
       leading: Icon(CupertinoIcons.person_3_fill),
       title: Text(
-        widget.groupTitle,
+        groupTitle,
       ),
-      subtitle: widget.groupDescription == null
-          ? null
-          : Text(widget.groupDescription),
+      subtitle: groupDescription == null ? null : Text(groupDescription),
     );
   }
 }

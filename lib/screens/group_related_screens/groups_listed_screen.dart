@@ -4,7 +4,7 @@ import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:publist/constants.dart';
 import 'package:provider/provider.dart';
 import 'package:publist/models/user_group_data.dart';
-import 'package:publist/widgets/user_groups_list.dart';
+import 'package:publist/widgets/group_related_widgets/user_groups_list.dart';
 import 'package:publist/screens/group_related_screens/create_group_screen.dart';
 
 class GroupsListedScreen extends StatefulWidget {

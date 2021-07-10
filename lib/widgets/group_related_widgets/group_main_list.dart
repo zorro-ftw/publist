@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:publist/models/group_data.dart';
-import 'package:publist/widgets/group_list_tile.dart';
+import 'package:publist/widgets/group_related_widgets/group_list_tile.dart';
 import 'package:provider/provider.dart';
+
+/// Group Main Screen açıldığında grubun içindeki Task List'leri ekrana listeleyen Widget.
 
 class GroupsList extends StatelessWidget {
   @override
