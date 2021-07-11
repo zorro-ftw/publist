@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:publist/firebase_services/auth_service.dart';
 import 'package:publist/components/rounded_button.dart';
 import 'package:publist/models/user_group_data.dart';
 import 'package:publist/screens/forgot_password_screen.dart';
@@ -9,21 +8,26 @@ import 'package:publist/constants.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:publist/screens/main_screen.dart';
 import 'package:auth_buttons/auth_buttons.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:publist/firebase_services/auth_service.dart';
 
-class LoginScreen extends StatefulWidget {
-  static const String id = 'login_screen';
+class ProfileScreen extends StatefulWidget {
+  static const String id = 'profile_screen';
+
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _ProfileScreenState createState() => _ProfileScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-  bool showSpinner = false;
+class _ProfileScreenState extends State<ProfileScreen> {
   final _auth = AuthService();
+
+  bool showSpinner = false;
   String email;
   String password;
 
   @override
   Widget build(BuildContext context) {
+    final User=_auth.currentUser();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
@@ -42,14 +46,8 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(
                 height: 36.0,
               ),
-              TextField(
-                keyboardType: TextInputType.emailAddress,
-                textAlign: TextAlign.center,
-                onChanged: (value) {
-                  email = value;
-                },
-                decoration:
-                    kTextFieldDecoration.copyWith(hintText: 'Enter your email'),
+              Text (
+                'asdasd'
               ),
               SizedBox(
                 height: 8.0,
@@ -70,31 +68,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 title: 'Sign In',
                 color: Color(0xFFCE9F35),
                 onPressed: () async {
-                  setState(() {
-                    showSpinner = true;
-                  });
-                  try {
-                    final user =
-                        await _auth.signInWithEmailAndPassword(email, password);
-                    if (user != null) {
-                      Navigator.pushNamed(context, MainScreen.id);
-                      print(user.user.emailVerified);
-                    }
-                    setState(() {
-                      showSpinner = false;
-                    });
-                  }  on FirebaseAuthException catch (e) {
-                    print(e.toString());
-                    setState(() {
-                      FocusScope.of(context).requestFocus(FocusNode());
-                      showSpinner = false;
-                    });
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(e.message),
-                      ),
-                    );
-                  }
                 },
               ),
               SizedBox(
@@ -104,26 +77,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 //title: 'Google',
                 //color: Color(0xFFD08933),
                 onPressed: () async {
-                  try {
-                    final user = await _auth.signInWithGoogle();
-                    if (user != null) {
-                      Navigator.pushNamed(context, MainScreen.id);
-                      print(user.user.emailVerified);
-                    }
-                    setState(() {
-                      showSpinner = false;
-                    });
-                  } on FirebaseAuthException catch (e) {
-                    print(e.toString());
-                    setState(() {
-                      showSpinner = false;
-                    });
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(e.message),
-                      ),
-                    );
-                  }
                 },
               ),
               SizedBox(
@@ -133,25 +86,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 //title: 'Facebook',
                 //color: Color(0xFFD08933),
                 onPressed: () async {
-                  try {
-                    final user = await _auth.signInWithFacebook();
-                    if (user != null) {
-                      Navigator.pushNamed(context, MainScreen.id);
-                    }
-                    setState(() {
-                      showSpinner = false;
-                    });
-                  } on FirebaseAuthException catch (e) {
-                    print(e.toString());
-                    setState(() {
-                      showSpinner = false;
-                    });
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(e.message),
-                      ),
-                    );
-                  }
                 },
               ),
               SizedBox(

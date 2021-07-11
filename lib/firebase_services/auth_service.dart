@@ -6,6 +6,10 @@ import 'package:string_validator/string_validator.dart';
 class AuthService {
   final _auth = FirebaseAuth.instance;
 
+  Future<User> currentUser() async {
+    return await _auth.currentUser;
+  }
+
   Future<UserCredential> signInWithEmailAndPassword(email, password) async {
     return await _auth.signInWithEmailAndPassword(
         email: email, password: password);

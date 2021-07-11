@@ -4,7 +4,7 @@ import 'package:publist/constants.dart';
 import 'package:publist/screens/chat_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:publist/components/rounded_button.dart';
-import 'package:publist/firebase services/auth_service.dart';
+import 'package:publist/firebase_services/auth_service.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   static const String id = 'forgot_password_screen';

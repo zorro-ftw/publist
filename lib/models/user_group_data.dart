@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:publist/models/group.dart';
 import 'dart:collection';
-import 'package:publist/firebase services/data_service.dart';
+import 'package:publist/firebase_services/data_service.dart';
 
 class UserGroupData extends ChangeNotifier {
   final _auth = FirebaseAuth.instance;
