@@ -18,7 +18,6 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  var _selection;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

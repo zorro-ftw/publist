@@ -1,15 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:publist/components/rounded_button.dart';
-import 'package:publist/models/user_group_data.dart';
 import 'package:publist/screens/forgot_password_screen.dart';
 import 'package:publist/screens/registration_screen.dart';
 import 'package:publist/constants.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
-import 'package:publist/screens/main_screen.dart';
 import 'package:auth_buttons/auth_buttons.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:publist/firebase_services/auth_service.dart';
 
 class ProfileScreen extends StatefulWidget {
   static const String id = 'profile_screen';
@@ -19,7 +15,7 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  final _auth = AuthService();
+  final _auth = FirebaseAuth.instance;
 
   bool showSpinner = false;
   String email;
@@ -27,7 +23,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final User=_auth.currentUser();
+    final user= _auth.currentUser;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
@@ -47,7 +43,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 height: 36.0,
               ),
               Text (
-                'asdasd'
+                user.displayName,
               ),
               SizedBox(
                 height: 8.0,

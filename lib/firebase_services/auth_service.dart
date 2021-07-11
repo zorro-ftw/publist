@@ -6,8 +6,8 @@ import 'package:string_validator/string_validator.dart';
 class AuthService {
   final _auth = FirebaseAuth.instance;
 
-  Future<User> currentUser() async {
-    return await _auth.currentUser;
+  currentUser() async {
+    return _auth.currentUser;
   }
 
   Future<UserCredential> signInWithEmailAndPassword(email, password) async {
@@ -15,7 +15,7 @@ class AuthService {
         email: email, password: password);
   }
 
-  Future<void> logout() => _auth.signOut();
+  Future<void> logout()async { await _auth.signOut();}
 
   Future<UserCredential> signInWithGoogle() async {
     final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
