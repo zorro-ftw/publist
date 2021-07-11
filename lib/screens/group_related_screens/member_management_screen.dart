@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:publist/constants.dart';
 import 'package:publist/models/group_data.dart';
 import 'package:provider/provider.dart';
+import 'package:publist/widgets/group_related_widgets/group_member_list.dart';
 
 class MemberManagementScreen extends StatelessWidget {
   @override
@@ -61,9 +62,10 @@ class MemberManagementScreen extends StatelessWidget {
               ),
             ),
           ),
+          kDivider,
           Expanded(
             child: Container(
-              color: Colors.red,
+              child: GroupMemberList(),
             ),
           )
         ],

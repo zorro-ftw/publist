@@ -5,12 +5,17 @@ import 'package:publist/models/group.dart';
 class DataService {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  Future createNewGroup(Group newGroup, String currentUserID) async {
+  Future createNewGroup(
+      Group newGroup, String currentUserID, String currentUserName) async {
+    Map currentMember = {currentUserID: currentUserName};
+
     await firestore.collection('groups').add({
       'groupCreatorID': currentUserID,
       'groupName': newGroup.name,
       'groupDescription': newGroup.description,
-      'groupMembers': [currentUserID],
+      'groupMemberIDs': [currentUserID],
+      'groupAdmins': [currentUserID],
+      'groupMembers': currentMember,
       'groupLists': [],
       'createdAt': newGroup.createdAt
     });
@@ -31,6 +36,10 @@ class DataService {
         .get();
     return queryOutputData.docs;
   }
+
+  // Future getCurrentUserGroups()async{
+  //   List groupMembers = await firestore.collection('groups').get()
+  // }
 
   Future getArrayQueryUpdate(
       {String queryString, String collection, String field}) async {

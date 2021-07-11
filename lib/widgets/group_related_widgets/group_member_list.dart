@@ -11,7 +11,10 @@ class GroupMemberList extends StatelessWidget {
         itemBuilder: (context, index) {
           final groupMembers = groupData.currentGroup.groupMembers;
 
-          return GroupMemberTile();
+          return GroupMemberTile(
+            memberName: groupMembers[index].memberName,
+            isAdmin: true, //groupMembers[index].isAdmin,
+          );
         },
         itemCount: groupData.memberCount,
       );

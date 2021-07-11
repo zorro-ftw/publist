@@ -7,7 +7,8 @@ class GroupTile extends StatelessWidget {
   final String groupTitle;
   final String groupDescription;
   final Function onTapCallback;
-  GroupTile({this.groupTitle, this.groupDescription, this.onTapCallback});
+
+  GroupTile({this.groupTitle, this.groupDescription, this.onTapCallback, t});
 
   @override
   Widget build(BuildContext context) {

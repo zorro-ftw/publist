@@ -24,9 +24,10 @@ class _GroupMainScreenState extends State<GroupMainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    ///Grup datasını çekmek biraz zaman aldığı için o gelene kadar boş ekran gösterecek, sonra grup bilgileriyle birlkte ekranı yenileyecek.
-    if (Provider.of<GroupData>(context).groupName == null) {
-      return Container();
+    if (Provider.of<GroupData>(context).getGroupName() == null) {
+      return Container(
+        child: CircularProgressIndicator(),
+      );
     } else {
       return Scaffold(
         appBar: PreferredSize(
@@ -65,7 +66,7 @@ class _GroupMainScreenState extends State<GroupMainScreen> {
                       Container(
                         constraints: BoxConstraints(maxWidth: 230),
                         child: Text(
-                          Provider.of<GroupData>(context).groupName,
+                          Provider.of<GroupData>(context).getGroupName(),
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 25.0,
