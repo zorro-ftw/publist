@@ -77,11 +77,7 @@ class _TodayScreenState extends State<TodayScreen> {
                   },
                   child: Text(
                     displayedDate,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 25.0,
-                      fontWeight: FontWeight.w700,
-                    ),
+                    style: defaultTextStyle,
                   ),
                 ),
                 SizedBox(
