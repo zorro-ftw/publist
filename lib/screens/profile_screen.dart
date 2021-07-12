@@ -16,7 +16,7 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   final _auth = FirebaseAuth.instance;
-
+  static const IconData pen = IconData(0xf2bf);
   bool showSpinner = false;
   String email;
   String password;
@@ -25,87 +25,61 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     final user= _auth.currentUser;
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: kMainThemeColor,
+        title: Padding(
+        padding: const EdgeInsets.only(top: 10.0),
+        child: Text(
+          'Profile',
+          style: TextStyle(color: Colors.white, fontSize: 24),
+        ),
+      ),),
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       body: ModalProgressHUD(
         inAsyncCall: showSpinner,
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Container(
-                height: 150.0,
-                child: Image.asset('images/logo.png'),
-              ),
-              SizedBox(
-                height: 36.0,
-              ),
-              Text (
-                user.displayName,
-              ),
-              SizedBox(
-                height: 8.0,
-              ),
-              TextField(
-                obscureText: true,
-                textAlign: TextAlign.center,
-                onChanged: (value) {
-                  password = value;
-                },
-                decoration: kTextFieldDecoration.copyWith(
-                    hintText: 'Enter your password'),
-              ),
-              SizedBox(
-                height: 24.0,
-              ),
-              RoundedButton(
-                title: 'Sign In',
-                color: Color(0xFFCE9F35),
-                onPressed: () async {
-                },
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              GoogleAuthButton(
-                //title: 'Google',
-                //color: Color(0xFFD08933),
-                onPressed: () async {
-                },
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              FacebookAuthButton(
-                //title: 'Facebook',
-                //color: Color(0xFFD08933),
-                onPressed: () async {
-                },
-              ),
-              SizedBox(
-                height: 25,
-              ),
-              RoundedButton(
-                title: "Don't have an account? Sign Up",
-                color: Colors.grey,
-                onPressed: () {
-                  Navigator.pushNamed(context, RegistrationScreen.id);
-                },
-              ),
-              SizedBox(
-                height:0,
-              ),
-              RoundedButton(
-                title: "Forgot Password?",
-                color: Colors.grey,
-                onPressed: () {
-                  Navigator.pushNamed(context, ForgotPasswordScreen.id);
-                },
-              ),
-            ],
-          ),
+        child: Column(
+
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            SizedBox(height: 25),
+            SizedBox(height: 115,width: 115,child: CircleAvatar(backgroundColor: Colors.black,),),
+            SizedBox(
+              height: 36.0,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Flexible(
+                  child: TextField(
+                    textAlign: TextAlign.center,
+                    onChanged: (value) {
+                      password = value;
+                    },
+                    decoration: kTextFieldDecoration.copyWith(
+                        hintText: user.displayName),
+                  ),
+                ),
+
+                Icon(Icons.border_color),
+              ],
+            ),
+            SizedBox(
+              height: 8.0,
+            ),
+            TextField(
+              obscureText: true,
+              textAlign: TextAlign.center,
+              onChanged: (value) {
+                password = value;
+              },
+              decoration: kTextFieldDecoration.copyWith(
+                  hintText: 'Enter your password'),
+            ),
+
+          ],
         ),
       ),
     );
