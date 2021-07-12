@@ -10,12 +10,18 @@ class AuthService {
     return _auth.currentUser;
   }
 
+  currentUserId() async {
+    return _auth.currentUser.uid;
+  }
+
   Future<UserCredential> signInWithEmailAndPassword(email, password) async {
     return await _auth.signInWithEmailAndPassword(
         email: email, password: password);
   }
 
-  Future<void> logout()async { await _auth.signOut();}
+  Future<void> logout() async {
+    await _auth.signOut();
+  }
 
   Future<UserCredential> signInWithGoogle() async {
     final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
@@ -43,8 +49,9 @@ class AuthService {
       return await _auth.signInWithCredential(facebookAuthCredential);
     }
   }
-  Future sendPasswordResetEmail(String email)async{
-    return _auth.sendPasswordResetEmail(email:email);
+
+  Future sendPasswordResetEmail(String email) async {
+    return _auth.sendPasswordResetEmail(email: email);
   }
 }
 

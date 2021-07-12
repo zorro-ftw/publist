@@ -78,7 +78,7 @@ class _GroupsListedScreenState extends State<GroupsListedScreen> {
           Expanded(
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 8.0),
-              child: GroupsList(),
+              child: UserGroupsList(),
             ),
           ),
           kDivider,

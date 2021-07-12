@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 /// Main Screen'de Groups sekmesine geçildiğinde (Group Main Screen açıldığında)
 /// kullanıcının üyesi olduğu grupları çeken listeleme Widget'ı.
 
-class GroupsList extends StatelessWidget {
+class UserGroupsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<UserGroupData>(
@@ -20,8 +20,6 @@ class GroupsList extends StatelessWidget {
               groupTitle: group.name,
               groupDescription: group.description,
               onTapCallback: () {
-                // await Provider.of<GroupData>(context, listen: false)
-                //     .getGroupDataByGroupID(group.groupID);
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                   return GroupMainScreen(groupID: group.groupID);
                 }));

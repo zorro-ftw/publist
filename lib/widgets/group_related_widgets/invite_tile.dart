@@ -3,20 +3,25 @@ import 'package:flutter/material.dart';
 
 /// user_groups_list dosyasının listeleme yaparken kullandığı group tile Widget'ı.
 
-class GroupTile extends StatelessWidget {
+class InviteTile extends StatelessWidget {
   final String groupTitle;
+  final String senderName;
   final String groupDescription;
   final Function onTapCallback;
 
-  GroupTile({this.groupTitle, this.groupDescription, this.onTapCallback, t});
+  InviteTile(
+      {this.groupTitle,
+      this.groupDescription,
+      this.onTapCallback,
+      this.senderName});
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       onTap: onTapCallback,
-      leading: Icon(CupertinoIcons.person_3_fill),
+      leading: Icon(Icons.insert_invitation_outlined),
       title: Text(
-        groupTitle,
+        '$senderName invites you to join $groupTitle',
       ),
       subtitle: groupDescription == null ? null : Text(groupDescription),
     );

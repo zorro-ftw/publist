@@ -19,7 +19,7 @@ class UserGroupData extends ChangeNotifier {
       userGroupRawData = await DataService().getArrayQuery(
           queryString: _auth.currentUser.uid,
           collection: 'groups',
-          field: 'groupMembers');
+          field: 'groupMemberIDs');
 
       for (int i = 0; i < userGroupRawData.length; i++) {
         _groups.add(
@@ -47,17 +47,13 @@ class UserGroupData extends ChangeNotifier {
       description: newGroupDescription,
       createdAt: Timestamp.now(),
     );
-    await DataService().createNewGroup(group, _auth.currentUser.uid);
+    await DataService().createNewGroup(
+        group, _auth.currentUser.uid, _auth.currentUser.displayName);
+
     newGroupRawData = await DataService().getArrayQuery(
         queryString: _auth.currentUser.uid,
         collection: 'groups',
-        field: 'groupMembers');
-
-    // print(newGroupRawData[0].data()['groupName']);
-    // print(newGroupRawData[1].data()['groupName']);
-    // print(newGroupRawData[2].data()['groupName']);
-    // print(newGroupRawData[3].data()['groupName']);
-    // print(newGroupRawData[4].data()['groupName']);
+        field: 'groupMemberIDs');
 
     _groups.add(
       Group(
@@ -69,7 +65,12 @@ class UserGroupData extends ChangeNotifier {
             newGroupRawData[newGroupRawData.length - 1].data()['createdAt'],
       ),
     );
+    print(newGroupRawData.length);
 
+    notifyListeners();
+  }
+
+  Future<void> updateUserGroups() async {
     notifyListeners();
   }
 

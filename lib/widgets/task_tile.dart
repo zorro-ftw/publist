@@ -76,6 +76,14 @@ class TaskTile extends StatelessWidget {
     return Slidable(
       actionPane: SlidableScrollActionPane(),
       actionExtentRatio: taskStatus == TaskStatus.active ? 0.20 : 0.30,
+      actions: [
+        IconSlideAction(
+          caption: 'Reminder',
+          color: Colors.lightBlue,
+          icon: Icons.alarm,
+          foregroundColor: Colors.white,
+        )
+      ],
       secondaryActions: getActions(taskStatus),
       child: ListTile(
         title: Text(
@@ -86,6 +94,7 @@ class TaskTile extends StatelessWidget {
                   : TextDecoration.lineThrough),
         ),
         trailing: getTrailingIcon(taskStatus),
+        leading: Icon(Icons.arrow_right_outlined),
       ),
     );
   }
