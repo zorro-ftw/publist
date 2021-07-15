@@ -9,7 +9,6 @@ import 'package:publist/screens/profile_screen.dart';
 enum Menu { ProfileScreen, InvitesScreen, selfStarter, LogOut }
 
 class PopUpButton extends StatefulWidget {
-
   @override
   _PopUpButtonState createState() => _PopUpButtonState();
 }
@@ -21,24 +20,42 @@ class _PopUpButtonState extends State<PopUpButton> {
   Widget build(BuildContext context) {
     return PopupMenuButton<Menu>(
       child: Icon(Icons.menu),
-      onSelected: (Menu result) { setState(() { _selection = result;
-      if(_selection==Menu.LogOut){
-        _auth.logout();
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return LoginScreen();
-        },),);
-      }
-      else if(_selection==Menu.InvitesScreen){
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return InvitesScreen();
-        },),);
-      }
-      else if(_selection==Menu.ProfileScreen){
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return ProfileScreen();
-        },),);
-      }
-      },); },
+      onSelected: (Menu result) {
+        setState(
+          () {
+            _selection = result;
+            if (_selection == Menu.LogOut) {
+              _auth.logout();
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return LoginScreen();
+                  },
+                ),
+              );
+            } else if (_selection == Menu.InvitesScreen) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return InvitesScreen();
+                  },
+                ),
+              );
+            } else if (_selection == Menu.ProfileScreen) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return ProfileScreen();
+                  },
+                ),
+              );
+            }
+          },
+        );
+      },
       itemBuilder: (BuildContext context) => <PopupMenuEntry<Menu>>[
         const PopupMenuItem<Menu>(
           value: Menu.ProfileScreen,
@@ -48,10 +65,10 @@ class _PopUpButtonState extends State<PopUpButton> {
           value: Menu.InvitesScreen,
           child: Text('Invites'),
         ),
-        const PopupMenuItem<Menu>(
-          value: Menu.selfStarter,
-          child: Text('Denemeee'),
-        ),
+        // const PopupMenuItem<Menu>(
+        //   value: Menu.selfStarter,
+        //   child: Text('Denemeee'),
+        // ),
         const PopupMenuItem<Menu>(
           value: Menu.LogOut,
           child: Text('Log Out'),
