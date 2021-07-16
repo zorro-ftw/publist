@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:publist/constants.dart';
-import 'package:publist/widgets/tasks_list.dart';
+import 'package:publist/widgets/task_related_widgets/tasks_list.dart';
 import 'package:publist/screens/add_task_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:publist/models/task_data.dart';
-import 'package:publist/services/date_selection_service.dart';
 import 'package:intl/intl.dart';
 
 class TodayScreen extends StatefulWidget {

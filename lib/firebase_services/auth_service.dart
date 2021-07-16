@@ -11,7 +11,15 @@ class AuthService {
   }
 
   currentUserId() async {
-    return _auth.currentUser.uid;
+    return _auth.currentUser.uid.toString();
+  }
+
+  currentUserEmail() async {
+    return _auth.currentUser.email.toString();
+  }
+
+  currentUserName() async {
+    return _auth.currentUser.displayName;
   }
 
   Future<UserCredential> signInWithEmailAndPassword(email, password) async {

@@ -1,12 +1,21 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:publist/constants.dart';
 import 'package:publist/models/group_data.dart';
 import 'package:provider/provider.dart';
+import 'package:publist/models/user_invite_data.dart';
 import 'package:publist/widgets/group_related_widgets/group_member_list.dart';
 
 class MemberManagementScreen extends StatelessWidget {
+  final String currentGroupID;
+  final String currentGroupName;
+
+  MemberManagementScreen({this.currentGroupName, this.currentGroupID});
+
   @override
   Widget build(BuildContext context) {
+    String newUserEmail;
+
     return Container(
       constraints:
           BoxConstraints(maxHeight: MediaQuery.of(context).size.height - 110),
@@ -35,6 +44,45 @@ class MemberManagementScreen extends StatelessWidget {
             margin: EdgeInsets.all(8),
             child: TextButton(
               onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (_) => AlertDialog(
+                          elevation: 10,
+                          title: Text('Enter user e-mail to invite'),
+                          content: TextField(
+                            keyboardType: TextInputType.emailAddress,
+                            autofocus: true,
+                            textAlign: TextAlign.center,
+                            onChanged: (newText) {
+                              newUserEmail = newText;
+                            },
+                          ),
+                          actions: [
+                            TextButton(
+                              // style: TextButton.styleFrom(
+                              //     backgroundColor: Colors.orange),
+                              onPressed: () async {
+                                print('başladı');
+                                await Provider.of<UserInviteData>(context,
+                                        listen: false)
+                                    .inviteUser(
+                                        userEmail: newUserEmail,
+                                        groupID: currentGroupID,
+                                        groupName: currentGroupName);
+                                print('bitti');
+                                Navigator.of(context, rootNavigator: true)
+                                    .pop();
+                              },
+                              child: Text(
+                                'Invite',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                    barrierDismissible: true);
                 //TODO - Davet gönderme işlemi buradan yapılacak
               },
               child: Padding(

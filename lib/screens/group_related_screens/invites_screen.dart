@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:publist/constants.dart';
 import 'package:provider/provider.dart';
-import 'package:publist/firebase_services/data_service.dart';
 import 'package:publist/models/user_invite_data.dart';
 import 'package:publist/widgets/group_related_widgets/user_invites_list.dart';
 

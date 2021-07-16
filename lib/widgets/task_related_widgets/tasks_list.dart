@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:publist/widgets/task_tile.dart';
+import 'package:publist/widgets/task_related_widgets/task_tile.dart';
 import 'package:provider/provider.dart';
 import 'package:publist/models/task_data.dart';
 
