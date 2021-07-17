@@ -22,6 +22,33 @@ class AuthService {
   Future<void> logout() async {
     await _auth.signOut();
   }
+  Future<String> changeEmail(newEmail) async {
+    try {
+      await _auth.currentUser.updateEmail(newEmail);
+      return 'Email successfully changed';
+    }on FirebaseAuthException catch (e) {
+      print(e.toString());
+      return(e.message);
+    }
+  }
+  Future<String> changeName(newName) async {
+    try {
+      await _auth.currentUser.updateDisplayName(newName);
+      return 'User name successfully changed';
+    }on FirebaseAuthException catch (e) {
+      print(e.toString());
+      return(e.message);
+    }
+  }
+  Future<String> changePassword(newPassword) async{
+    try {
+      await _auth.currentUser.updatePassword(newPassword);
+      return 'User password successfully changed';
+    }on FirebaseAuthException catch (e) {
+      print(e.toString());
+      return(e.message);
+    }
+  }
 
   Future<UserCredential> signInWithGoogle() async {
     final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
@@ -68,6 +95,7 @@ class EmailValidator {
 
 class NameValidator {
   static String validate(String name) {
+    String pattern=r'^[a-zA-Z0-9\s]+$';
     if (name == null || name.isEmpty) {
       return "Name can't be empty!";
     } else if (name.length < 3) {
@@ -76,8 +104,10 @@ class NameValidator {
       return "Name can't be longer than 20 characters!";
     } else if (!isAlpha(name[0])) {
       return "First character of a name must be a letter!";
-    } else if (!isAlphanumeric(name)) {
-      return "Name must be letters only!";
+    }
+    RegExp regExp = new RegExp(pattern);
+    if (!regExp.hasMatch(name)) {
+      return "Name must be alphanumerical characters only!";
     }
     return null;
   }

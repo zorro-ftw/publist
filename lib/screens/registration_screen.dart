@@ -5,6 +5,7 @@ import 'package:publist/screens/chat_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:publist/components/rounded_button.dart';
 import 'package:publist/firebase_services/auth_service.dart';
+import 'package:publist/screens/main_screen.dart';
 
 class RegistrationScreen extends StatefulWidget {
   static const String id = 'registration_screen';
@@ -129,6 +130,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       if (newUser != null) {
                         try{
                           await newUser.user.sendEmailVerification();
+                          newUser.user.updateDisplayName(name);
+                          newUser.user.updatePhotoURL('https://firebasestorage.googleapis.com/v0/b/publist-41405.appspot.com/o/image_picker1134916979806857481.png?alt=media&token=055be7a4-7c7c-4113-a42f-a8f6e46759c2');
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text("Verification e-mail has been sent to $email"),
@@ -144,7 +147,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             ),
                           );
                         }
-                        Navigator.pushNamed(context, ChatScreen.id);
+                        Navigator.pushNamed(context, MainScreen.id);
                       }
                       setState(() {
                         showSpinner = false;

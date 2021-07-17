@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:publist/screens/login_screen.dart';
 import 'package:publist/screens/main_screen.dart';
 import 'package:publist/firebase_services/auth_service.dart';
-import 'package:publist/screens/registration_screen.dart';
+import 'package:publist/enums.dart';
 import 'package:publist/screens/group_related_screens/invites_screen.dart';
 import 'package:publist/screens/profile_screen.dart';
 
-enum Menu { ProfileScreen, InvitesScreen, selfStarter, LogOut }
+
 
 class PopUpButton extends StatefulWidget {
 

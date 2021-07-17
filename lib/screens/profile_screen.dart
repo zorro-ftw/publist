@@ -1,11 +1,16 @@
 import 'dart:io';
+import 'package:path/path.dart' as path;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:publist/constants.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:path/path.dart';
+import 'package:publist/enums.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'add_task_screen.dart';
+import 'user_data.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter/src/widgets/framework.dart';
 
 class ProfileScreen extends StatefulWidget {
   static const String id = 'profile_screen';
@@ -23,8 +28,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final user= _auth.currentUser;
     String userUrl=user.photoURL;
 
+
     Future uploadImage(BuildContext context) async{
-      String filename=basename(_image.path);
+      String filename=path.basename(_image.path);
       Reference storageRef=FirebaseStorage.instance.ref().child(filename);
       UploadTask uploadTask= storageRef.putFile(_image);
       try {
@@ -38,7 +44,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           );
         });
-
       } on  FirebaseException catch (e) {
         print(uploadTask.snapshot);
         if (e.code == 'permission-denied') {
@@ -101,10 +106,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     color: kMainThemeColor,
                   ),
                   onPressed: () async{
-                      await getImage().then((value) {setState(() {
-                        userUrl=user.photoURL;
-                      });});
-
+                      await getImage();
                   },
                 ),
               ),
@@ -117,7 +119,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
             children:<Widget> [
               SizedBox(width:40,),
               Text(user.displayName,style: defaultTextStyle),
-              IconButton(icon:Icon(Icons.border_color,), onPressed: (){})
+              IconButton(icon:Icon(Icons.border_color,),onPressed: () {
+                showModalBottomSheet(
+                  isScrollControlled: true,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20),
+                    ),
+                  ),
+                  context: context,
+                  builder: (BuildContext context) => SingleChildScrollView(
+                    child: AddTaskScreen(role:Role.rename),
+                  ),
+                );
+              })
             ],
           ),
           SizedBox(height: 20),
@@ -127,7 +143,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
             children:<Widget> [
               SizedBox(width:40,),
               Text(user.email,style: defaultTextStyle),
-              IconButton(icon:Icon(Icons.border_color,), onPressed: (){})
+              IconButton(icon:Icon(Icons.border_color,), onPressed: () {
+                showModalBottomSheet(
+                  isScrollControlled: true,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20),
+                    ),
+                  ),
+                  context: context,
+                  builder: (BuildContext context) => SingleChildScrollView(
+                    child: AddTaskScreen(role:Role.email),
+                  ),
+                );
+              })
             ],
           ),
           SizedBox(height: 20),
@@ -136,7 +166,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
             children:<Widget> [
               SizedBox(width:40,),
               Text('Password',style: fadeTextStyle),
-              IconButton(icon:Icon(Icons.border_color,), onPressed: (){})
+              IconButton(icon:Icon(Icons.border_color,),onPressed: () {
+                showModalBottomSheet(
+                  isScrollControlled: true,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20),
+                    ),
+                  ),
+                  context: context,
+                  builder: (BuildContext context) => SingleChildScrollView(
+                    child: AddTaskScreen(role:Role.password),
+                  ),
+                );
+              })
             ],
           ),
         ],

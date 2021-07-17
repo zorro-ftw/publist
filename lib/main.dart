@@ -11,6 +11,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:publist/screens/main_screen.dart';
 import 'package:publist/models/user_group_data.dart';
 import 'package:publist/models/group_data.dart';
+import 'package:publist/screens/user_data.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,13 +21,26 @@ void main() async {
 }
 
 class Publist extends StatelessWidget {
+  String _inRoot;
+  final user=FirebaseAuth.instance.currentUser;
+
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+
+    if (user!=null){
+      _inRoot=MainScreen.id;
+    }
+    else{_inRoot=LoginScreen.id;
+}
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
           create: (context) => TaskData(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => UserData(),
         ),
         ChangeNotifierProvider(
           create: (context) => UserGroupData(),
@@ -38,7 +53,8 @@ class Publist extends StatelessWidget {
         )
       ],
       child: MaterialApp(
-        initialRoute: LoginScreen.id,
+
+        initialRoute: _inRoot,
         routes: {
           GroupMainScreen.id: (context) => GroupMainScreen(),
           MainScreen.id: (context) => MainScreen(),

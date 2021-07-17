@@ -7,9 +7,6 @@ import 'package:publist/models/user_group_data.dart';
 import 'forgot_password_screen.dart';
 import 'package:publist/components/popup_button.dart';
 
-enum Menu { ProfileScreen, InviteScreen, selfStarter, LogOut }
-
-
 class MainScreen extends StatefulWidget {
   static const String id = 'main_screen';
 
