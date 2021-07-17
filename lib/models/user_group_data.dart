@@ -65,12 +65,7 @@ class UserGroupData extends ChangeNotifier {
             newGroupRawData[newGroupRawData.length - 1].data()['createdAt'],
       ),
     );
-    print(newGroupRawData.length);
 
-    notifyListeners();
-  }
-
-  Future<void> updateUserGroups() async {
     notifyListeners();
   }
 

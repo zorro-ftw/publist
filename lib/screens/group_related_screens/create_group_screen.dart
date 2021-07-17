@@ -64,8 +64,6 @@ class CreateGroupScreen extends StatelessWidget {
               if (newGroupTitle != null) {
                 await Provider.of<UserGroupData>(context, listen: false)
                     .addGroup(newGroupTitle, newGroupDescription);
-                await Provider.of<UserGroupData>(context, listen: false)
-                    .updateUserGroups();
 
                 Navigator.pop(context);
               }

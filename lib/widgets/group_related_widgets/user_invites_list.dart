@@ -16,8 +16,14 @@ class UserInvitesList extends StatelessWidget {
             return InviteTile(
               groupTitle: invite.inviteForName,
               senderName: invite.senderName,
-              onTapCallback: () {
-                // showDialog(context: context, builder: );
+              onAccept: () async {
+                await userInviteData.acceptInvite(currentInvite: invite);
+                await userInviteData
+                    .getUserInvites(); // showDialog(context: context, builder: );
+              },
+              onReject: () async {
+                await userInviteData.rejectInvite(currentInvite: invite);
+                await userInviteData.getUserInvites();
               },
             );
           },

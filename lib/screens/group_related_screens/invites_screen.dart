@@ -14,11 +14,11 @@ class _InvitesScreenState extends State<InvitesScreen> {
   @override
   void initState() {
     super.initState();
-    Provider.of<UserInviteData>(context, listen: false).getUserInvites();
   }
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<UserInviteData>(context, listen: false).getUserInvites();
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(85),

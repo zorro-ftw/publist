@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:publist/models/group.dart';
-import 'package:publist/models/invite.dart';
 
 class DataService {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -26,25 +25,6 @@ class DataService {
     final outputData = await firestore.collection(collectionPath).get();
     return outputData.docs;
   }
-
-  // Future<List> getInviteStream() async {
-  //   List invites = [];
-  //   await for (var snapshot in firestore
-  //       .collection('invites')
-  //       .where('receiverID', isEqualTo: await AuthService().currentUserId())
-  //       .orderBy('createdAt', descending: false)
-  //       .snapshots()) {
-  //     invites.add(Invite(
-  //         id: snapshot.docs[invites.length].id,
-  //         receiverID: snapshot.docs[invites.length].data()['receiverID'],
-  //         senderID: snapshot.docs[invites.length].data()['senderID'],
-  //         senderName: snapshot.docs[invites.length].data()['senderName'],
-  //         inviteForID: snapshot.docs[invites.length].data()['inviteForID'],
-  //         inviteForName: snapshot.docs[invites.length].data()['inviteForName'],
-  //         createdAt: snapshot.docs[invites.length].data()['createdAt']));
-  //   }
-  //   return invites;
-  // }
 
   Future getArrayQuery(
       {String queryString, String collection, String field}) async {
@@ -80,5 +60,11 @@ class DataService {
         await firestore.collection(collection).doc(documentID).get();
 
     return queryOutputData.data();
+  }
+
+  Future<void> updateDataByID(
+      {String collectionPath, String docID, String field, var value}) async {
+    await firestore.collection(collectionPath).doc(docID).set({field: value});
+    print('DATA GÜNCELLENDİ');
   }
 }

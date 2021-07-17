@@ -5,18 +5,20 @@ class Invite {
   final String id;
   final String senderID;
   final String senderName;
-  final String receiverID;
+  final String receiverEmail;
   final String inviteForID;
   final String inviteForName;
   final bool isAccepted;
+  final bool isRejected;
 
   Invite(
       {this.id,
-      this.receiverID,
+      this.receiverEmail,
       this.senderID,
       this.senderName,
       this.inviteForID,
       this.inviteForName,
       this.createdAt,
-      this.isAccepted = false});
+      this.isAccepted = false,
+      this.isRejected = false});
 }

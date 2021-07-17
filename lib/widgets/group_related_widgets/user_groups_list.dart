@@ -3,6 +3,7 @@ import 'package:publist/models/user_group_data.dart';
 import 'package:publist/screens/group_related_screens/group_main_screen.dart';
 import 'package:publist/widgets/group_related_widgets/group_tile.dart';
 import 'package:provider/provider.dart';
+import 'package:publist/models/group_data.dart';
 
 /// Main Screen'de Groups sekmesine geçildiğinde (Group Main Screen açıldığında)
 /// kullanıcının üyesi olduğu grupları çeken listeleme Widget'ı.
@@ -19,7 +20,9 @@ class UserGroupsList extends StatelessWidget {
             return GroupTile(
               groupTitle: group.name,
               groupDescription: group.description,
-              onTapCallback: () {
+              onTapCallback: () async {
+                await Provider.of<GroupData>(context, listen: false)
+                    .getGroupDataByGroupID(group.groupID);
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                   return GroupMainScreen(groupID: group.groupID);
                 }));

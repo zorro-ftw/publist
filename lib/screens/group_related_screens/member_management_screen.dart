@@ -62,14 +62,13 @@ class MemberManagementScreen extends StatelessWidget {
                               // style: TextButton.styleFrom(
                               //     backgroundColor: Colors.orange),
                               onPressed: () async {
-                                print('başladı');
                                 await Provider.of<UserInviteData>(context,
                                         listen: false)
                                     .inviteUser(
                                         userEmail: newUserEmail,
                                         groupID: currentGroupID,
                                         groupName: currentGroupName);
-                                print('bitti');
+
                                 Navigator.of(context, rootNavigator: true)
                                     .pop();
                               },
@@ -83,7 +82,6 @@ class MemberManagementScreen extends StatelessWidget {
                           ],
                         ),
                     barrierDismissible: true);
-                //TODO - Davet gönderme işlemi buradan yapılacak
               },
               child: Padding(
                 padding: EdgeInsets.only(left: 10, right: 5),
