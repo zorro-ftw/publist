@@ -1,6 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:publist/firebase_services/auth_service.dart';
 import 'package:publist/models/group.dart';
 import 'package:publist/models/invite.dart';
 

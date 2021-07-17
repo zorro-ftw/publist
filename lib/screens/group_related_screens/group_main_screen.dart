@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:publist/constants.dart';
 import 'package:publist/models/group_data.dart';
 import 'package:publist/screens/group_related_screens/member_management_screen.dart';
+import 'package:publist/widgets/group_related_widgets/group_main_list.dart';
 
 class GroupMainScreen extends StatefulWidget {
   static const String id = 'group_main_screen';
@@ -97,7 +98,14 @@ class _GroupMainScreenState extends State<GroupMainScreen> {
                                 context: context,
                                 builder: (BuildContext context) =>
                                     SingleChildScrollView(
-                                  child: MemberManagementScreen(),
+                                  child: MemberManagementScreen(
+                                    currentGroupName:
+                                        Provider.of<GroupData>(context)
+                                            .getGroupName(),
+                                    currentGroupID:
+                                        Provider.of<GroupData>(context)
+                                            .getGroupID(),
+                                  ),
                                 ),
                               );
                             },
@@ -150,6 +158,7 @@ class _GroupMainScreenState extends State<GroupMainScreen> {
             Expanded(
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 8.0),
+                child: GroupMainList(),
               ),
             ),
           ],

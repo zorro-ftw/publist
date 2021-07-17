@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 /// Group Main Screen açıldığında grubun içindeki Task List'leri ekrana listeleyen Widget.
 
-class GroupsList extends StatelessWidget {
+class GroupMainList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<GroupData>(

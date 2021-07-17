@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:publist/screens/login_screen.dart';
-import 'package:publist/screens/main_screen.dart';
 import 'package:publist/firebase_services/auth_service.dart';
+<<<<<<< HEAD
 import 'package:publist/enums.dart';
+=======
+>>>>>>> d5ee44908fef51ecdc046952c800e899f3b5f54a
 import 'package:publist/screens/group_related_screens/invites_screen.dart';
 import 'package:publist/screens/profile_screen.dart';
 
 
 
 class PopUpButton extends StatefulWidget {
-
   @override
   _PopUpButtonState createState() => _PopUpButtonState();
 }
@@ -21,24 +22,42 @@ class _PopUpButtonState extends State<PopUpButton> {
   Widget build(BuildContext context) {
     return PopupMenuButton<Menu>(
       child: Icon(Icons.menu),
-      onSelected: (Menu result) { setState(() { _selection = result;
-      if(_selection==Menu.LogOut){
-        _auth.logout();
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return LoginScreen();
-        },),);
-      }
-      else if(_selection==Menu.InvitesScreen){
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return InvitesScreen();
-        },),);
-      }
-      else if(_selection==Menu.ProfileScreen){
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return ProfileScreen();
-        },),);
-      }
-      },); },
+      onSelected: (Menu result) {
+        setState(
+          () {
+            _selection = result;
+            if (_selection == Menu.LogOut) {
+              _auth.logout();
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return LoginScreen();
+                  },
+                ),
+              );
+            } else if (_selection == Menu.InvitesScreen) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return InvitesScreen();
+                  },
+                ),
+              );
+            } else if (_selection == Menu.ProfileScreen) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return ProfileScreen();
+                  },
+                ),
+              );
+            }
+          },
+        );
+      },
       itemBuilder: (BuildContext context) => <PopupMenuEntry<Menu>>[
         const PopupMenuItem<Menu>(
           value: Menu.ProfileScreen,
@@ -48,10 +67,10 @@ class _PopUpButtonState extends State<PopUpButton> {
           value: Menu.InvitesScreen,
           child: Text('Invites'),
         ),
-        const PopupMenuItem<Menu>(
-          value: Menu.selfStarter,
-          child: Text('Denemeee'),
-        ),
+        // const PopupMenuItem<Menu>(
+        //   value: Menu.selfStarter,
+        //   child: Text('Denemeee'),
+        // ),
         const PopupMenuItem<Menu>(
           value: Menu.LogOut,
           child: Text('Log Out'),

@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:publist/firebase_services/auth_service.dart';
 import 'package:publist/components/rounded_button.dart';
-import 'package:publist/models/user_group_data.dart';
 import 'package:publist/screens/forgot_password_screen.dart';
 import 'package:publist/screens/registration_screen.dart';
 import 'package:publist/constants.dart';
@@ -83,7 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     setState(() {
                       showSpinner = false;
                     });
-                  }  on FirebaseAuthException catch (e) {
+                  } on FirebaseAuthException catch (e) {
                     print(e.toString());
                     setState(() {
                       FocusScope.of(context).requestFocus(FocusNode());
@@ -165,7 +164,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 },
               ),
               SizedBox(
-                height:0,
+                height: 0,
               ),
               RoundedButton(
                 title: "Forgot Password?",

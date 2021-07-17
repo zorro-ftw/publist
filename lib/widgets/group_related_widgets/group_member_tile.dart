@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:publist/models/group_data.dart';
 
 class GroupMemberTile extends StatelessWidget {
   final String memberName;

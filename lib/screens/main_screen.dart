@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:publist/constants.dart';
 import 'package:publist/screens/today_screen.dart';
 import 'package:publist/screens/group_related_screens/groups_listed_screen.dart';
-import 'package:publist/models/user_group_data.dart';
-import 'forgot_password_screen.dart';
 import 'package:publist/components/popup_button.dart';
 
+<<<<<<< HEAD
+=======
+enum Menu { ProfileScreen, InviteScreen, selfStarter, LogOut }
+
+>>>>>>> d5ee44908fef51ecdc046952c800e899f3b5f54a
 class MainScreen extends StatefulWidget {
   static const String id = 'main_screen';
 
@@ -24,7 +26,7 @@ class _MainScreenState extends State<MainScreen> {
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(85),
             child: AppBar(
-              leading:PopUpButton(),
+              leading: PopUpButton(),
               backgroundColor: kMainThemeColor,
               bottom: TabBar(
                 indicatorColor: Colors.yellow,
