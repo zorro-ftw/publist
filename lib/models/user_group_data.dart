@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:publist/models/group.dart';
 import 'dart:collection';
 import 'package:publist/firebase_services/data_service.dart';
+import 'package:publist/enums.dart';
 
 class UserGroupData extends ChangeNotifier {
   final _auth = FirebaseAuth.instance;
@@ -30,6 +31,33 @@ class UserGroupData extends ChangeNotifier {
         );
       }
       notifyListeners();
+    }
+  }
+
+  Future inviteAccepted(String groupID, bool isAlreadyMember) async {
+    userGroupRawData = await DataService().getArrayQuery(
+        queryString: _auth.currentUser.uid,
+        collection: 'groups',
+        field: 'groupMemberIDs');
+
+    int index;
+    for (int temp = 0; temp < userGroupRawData.length; temp++) {
+      if (groupID == userGroupRawData[temp].id) {
+        index = temp;
+        isAlreadyMember = true;
+        break;
+      }
+    }
+
+    if (index != null && !isAlreadyMember) {
+      //TODO - Invite kabul edildiyse
+      _groups.insert(
+        index,
+        Group(
+            name: userGroupRawData[index].data()['groupName'],
+            description: userGroupRawData[index].data()['groupDescription'],
+            groupID: userGroupRawData[index].id),
+      );
     }
   }
 

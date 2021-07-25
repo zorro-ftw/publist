@@ -7,6 +7,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 class UserInviteData extends ChangeNotifier {
   List invites = [];
+  bool isAlreadyMember = false;
+
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   final _auth = FirebaseAuth.instance;
 
@@ -72,7 +74,6 @@ class UserInviteData extends ChangeNotifier {
   }
 
   Future acceptInvite({Invite currentInvite}) async {
-    bool isAlreadyMember = false;
     var dummy = await DataService().getCollectionByIdQuery(
         collection: 'groups', documentID: currentInvite.inviteForID);
     print(dummy['groupMembers']);
@@ -111,11 +112,23 @@ class UserInviteData extends ChangeNotifier {
     print(dummy['groupMembers']);
     print(dummy['groupMemberIDs']);
 
-    // await firestore.collection('invites').doc(currentInvite.id).delete();
+    for (int i = 0; i < invites.length; i++) {
+      if (invites[i].id == currentInvite.id) {
+        invites.removeAt(i);
+      }
+    }
+    notifyListeners();
+    await firestore.collection('invites').doc(currentInvite.id).delete();
   }
 
   Future<void> rejectInvite({Invite currentInvite}) async {
     //TODO - UI güncellemesi için bir şeyler eklemek gerekecek. getUserGroups() fonksiyonunu modifiye edip onu burada çağırabilirim.
     await firestore.collection('invites').doc(currentInvite.id).delete();
+    for (int i = 0; i < invites.length; i++) {
+      if (invites[i].id == currentInvite.id) {
+        invites.removeAt(i);
+      }
+    }
+    notifyListeners();
   }
 }

@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:publist/models/user_group_data.dart';
 import 'package:publist/models/user_invite_data.dart';
 import 'package:publist/widgets/group_related_widgets/invite_tile.dart';
 import 'package:provider/provider.dart';
+import 'package:publist/enums.dart';
 
 class UserInvitesList extends StatelessWidget {
   @override
@@ -18,12 +20,12 @@ class UserInvitesList extends StatelessWidget {
               senderName: invite.senderName,
               onAccept: () async {
                 await userInviteData.acceptInvite(currentInvite: invite);
-                await userInviteData
-                    .getUserInvites(); // showDialog(context: context, builder: );
+                await Provider.of<UserGroupData>(context, listen: false)
+                    .inviteAccepted(
+                        invite.inviteForID, userInviteData.isAlreadyMember);
               },
               onReject: () async {
                 await userInviteData.rejectInvite(currentInvite: invite);
-                await userInviteData.getUserInvites();
               },
             );
           },
