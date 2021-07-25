@@ -4,10 +4,7 @@ import 'package:publist/widgets/task_related_widgets/tasks_list.dart';
 import 'package:publist/screens/add_task_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:publist/models/task_data.dart';
-<<<<<<< HEAD
 import 'package:publist/enums.dart';
-=======
->>>>>>> d5ee44908fef51ecdc046952c800e899f3b5f54a
 import 'package:intl/intl.dart';
 
 class TodayScreen extends StatefulWidget {
@@ -49,8 +46,7 @@ class _TodayScreenState extends State<TodayScreen> {
               ),
               context: context,
               builder: (BuildContext context) => SingleChildScrollView(
-                child: AddTaskScreen(role:Role.addTask)
-              ),
+                  child: AddTaskScreen(role: Role.addTask)),
             );
           }),
       body: Column(

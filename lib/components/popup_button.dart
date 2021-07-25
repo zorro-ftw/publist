@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:publist/screens/login_screen.dart';
 import 'package:publist/firebase_services/auth_service.dart';
-<<<<<<< HEAD
+
 import 'package:publist/enums.dart';
-=======
->>>>>>> d5ee44908fef51ecdc046952c800e899f3b5f54a
+
 import 'package:publist/screens/group_related_screens/invites_screen.dart';
 import 'package:publist/screens/profile_screen.dart';
-
-
 
 class PopUpButton extends StatefulWidget {
   @override
