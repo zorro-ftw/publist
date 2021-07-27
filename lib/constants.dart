@@ -6,17 +6,16 @@ const kSendButtonTextStyle = TextStyle(
   fontSize: 18.0,
 );
 
-const defaultTextStyle=TextStyle(
-color: Colors.black,
-fontSize: 25.0,
-fontWeight: FontWeight.w700,
+const defaultTextStyle = TextStyle(
+  color: Colors.black,
+  fontSize: 25.0,
+  fontWeight: FontWeight.w700,
 );
-const fadeTextStyle=TextStyle(
+const fadeTextStyle = TextStyle(
   color: Colors.grey,
   fontSize: 18.0,
   fontWeight: FontWeight.w500,
 );
-
 
 const kMessageTextFieldDecoration = InputDecoration(
   contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
@@ -55,3 +54,5 @@ const kDivider = Divider(
 );
 
 const kMainThemeColor = Color(0xFFCE9F35);
+
+const kDisabledButtonFillColor = Color(0xFF9B9B9B);

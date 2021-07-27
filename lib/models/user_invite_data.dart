@@ -76,10 +76,6 @@ class UserInviteData extends ChangeNotifier {
   Future acceptInvite({Invite currentInvite}) async {
     var dummy = await DataService().getCollectionByIdQuery(
         collection: 'groups', documentID: currentInvite.inviteForID);
-    print(dummy['groupMembers']);
-    print(dummy['groupMemberIDs']);
-    dummy['groupMembers'][_auth.currentUser.uid] =
-        _auth.currentUser.displayName;
 
     /// groupMembers bir map olduğu için direkt ekleme yapınca o data var mı yok mu kontrolünü kendi yapıyor.
     /// Ancak groupMemberIDs bir list olduğundan bu kontrolü yapmak için aşağıdaki gibi bir for çevirmek gerek.
@@ -91,6 +87,8 @@ class UserInviteData extends ChangeNotifier {
       }
     }
     if (!isAlreadyMember) {
+      dummy['groupMembers'][_auth.currentUser.uid] =
+          _auth.currentUser.displayName;
       dummy['groupMemberIDs'].add(_auth.currentUser.uid);
       await DataService().updateDataByID(
           collectionPath: 'invites',

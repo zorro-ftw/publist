@@ -10,8 +10,8 @@ class AuthService {
     return _auth.currentUser;
   }
 
-  currentUserId() async {
-    return _auth.currentUser.uid.toString();
+  String get currentUserId {
+    return _auth.currentUser.uid;
   }
 
   currentUserEmail() async {
@@ -30,31 +30,34 @@ class AuthService {
   Future<void> logout() async {
     await _auth.signOut();
   }
+
   Future<String> changeEmail(newEmail) async {
     try {
       await _auth.currentUser.updateEmail(newEmail);
       return 'Email successfully changed';
-    }on FirebaseAuthException catch (e) {
+    } on FirebaseAuthException catch (e) {
       print(e.toString());
-      return(e.message);
+      return (e.message);
     }
   }
+
   Future<String> changeName(newName) async {
     try {
       await _auth.currentUser.updateDisplayName(newName);
       return 'User name successfully changed';
-    }on FirebaseAuthException catch (e) {
+    } on FirebaseAuthException catch (e) {
       print(e.toString());
-      return(e.message);
+      return (e.message);
     }
   }
-  Future<String> changePassword(newPassword) async{
+
+  Future<String> changePassword(newPassword) async {
     try {
       await _auth.currentUser.updatePassword(newPassword);
       return 'User password successfully changed';
-    }on FirebaseAuthException catch (e) {
+    } on FirebaseAuthException catch (e) {
       print(e.toString());
-      return(e.message);
+      return (e.message);
     }
   }
 
@@ -103,7 +106,7 @@ class EmailValidator {
 
 class NameValidator {
   static String validate(String name) {
-    String pattern=r'^[a-zA-Z0-9\s]+$';
+    String pattern = r'^[a-zA-Z0-9\s]+$';
     if (name == null || name.isEmpty) {
       return "Name can't be empty!";
     } else if (name.length < 3) {

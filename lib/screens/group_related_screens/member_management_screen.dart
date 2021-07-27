@@ -36,53 +36,62 @@ class MemberManagementScreen extends StatelessWidget {
           ),
           Container(
             decoration: BoxDecoration(
-                color: kMainThemeColor,
+                color: Provider.of<GroupData>(context).isCurrentUserAdmin
+                    ? kMainThemeColor
+                    : kDisabledButtonFillColor,
                 borderRadius: BorderRadius.all(
                   Radius.circular(10),
                 )),
             constraints: BoxConstraints(maxWidth: 250.0, minHeight: 40.0),
             margin: EdgeInsets.all(8),
             child: TextButton(
-              onPressed: () {
-                showDialog(
-                    context: context,
-                    builder: (_) => AlertDialog(
-                          elevation: 10,
-                          title: Text('Enter user e-mail to invite'),
-                          content: TextField(
-                            keyboardType: TextInputType.emailAddress,
-                            autofocus: true,
-                            textAlign: TextAlign.center,
-                            onChanged: (newText) {
-                              newUserEmail = newText;
-                            },
-                          ),
-                          actions: [
-                            TextButton(
-                              // style: TextButton.styleFrom(
-                              //     backgroundColor: Colors.orange),
-                              onPressed: () async {
-                                await Provider.of<UserInviteData>(context,
-                                        listen: false)
-                                    .inviteUser(
-                                        userEmail: newUserEmail,
-                                        groupID: currentGroupID,
-                                        groupName: currentGroupName);
+              onPressed: Provider.of<GroupData>(context).isCurrentUserAdmin
 
-                                Navigator.of(context, rootNavigator: true)
-                                    .pop();
-                              },
-                              child: Text(
-                                'Invite',
-                                style: TextStyle(
-                                  fontSize: 18,
+                  ///currentUser admin değilse onpressed boş bir fonksiyon
+                  ? () {
+                      showDialog(
+                          context: context,
+                          builder: (_) => AlertDialog(
+                                elevation: 10,
+                                title: Text('Enter user e-mail to invite'),
+                                content: TextField(
+                                  keyboardType: TextInputType.emailAddress,
+                                  autofocus: true,
+                                  textAlign: TextAlign.center,
+                                  onChanged: (newText) {
+                                    newUserEmail = newText;
+                                  },
                                 ),
+                                actions: [
+                                  TextButton(
+                                    // style: TextButton.styleFrom(
+                                    //     backgroundColor: Colors.orange),
+                                    onPressed: () async {
+                                      await Provider.of<UserInviteData>(context,
+                                              listen: false)
+                                          .inviteUser(
+                                              userEmail: newUserEmail,
+                                              groupID: currentGroupID,
+                                              groupName: currentGroupName);
+
+                                      Navigator.of(context, rootNavigator: true)
+                                          .pop();
+                                    },
+                                    child: Text(
+                                      'Invite',
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ),
-                          ],
-                        ),
-                    barrierDismissible: true);
-              },
+                          barrierDismissible: true);
+                    }
+                  : () {}
+
+              /// Yukarıda bahsedilen boş fonksiyon
+              ,
               child: Padding(
                 padding: EdgeInsets.only(left: 10, right: 5),
                 child: Container(

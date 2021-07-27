@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:publist/firebase_services/auth_service.dart';
 import 'package:publist/models/group.dart';
 import 'package:publist/firebase_services/data_service.dart';
 import 'package:publist/models/group_member.dart';
@@ -6,6 +7,7 @@ import 'package:publist/models/group_member.dart';
 class GroupData extends ChangeNotifier {
   Group currentGroup;
   List<GroupMember> currentGroupMembers = [];
+  bool isCurrentUserAdmin;
 
   var dummyQueryOutput;
 
@@ -35,12 +37,26 @@ class GroupData extends ChangeNotifier {
     List currentGroupMemberIDs = dummyQueryOutput['groupMembers'].keys.toList();
     List currentGroupMemberNames =
         dummyQueryOutput['groupMembers'].values.toList();
+    List currentGroupAdmins = dummyQueryOutput['groupAdmins'];
+
+    print(dummyQueryOutput['groupAdmins']);
+    print(AuthService().currentUserId);
+    if (currentGroupAdmins.contains(AuthService().currentUserId)) {
+      isCurrentUserAdmin = true;
+      print("TRUE OLDU");
+    } else {
+      isCurrentUserAdmin = false;
+      print("FALSE OLDU");
+    }
 
     for (int i = 0; i < currentGroupMemberIDs.length; i++) {
       currentGroupMembers.add(
         GroupMember(
           memberID: currentGroupMemberIDs[i],
           memberName: currentGroupMemberNames[i],
+          isAdmin: currentGroupAdmins.contains(
+            currentGroupMemberIDs[i],
+          ),
         ),
       );
     }

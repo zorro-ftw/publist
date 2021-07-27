@@ -12,9 +12,8 @@ class GroupMemberList extends StatelessWidget {
           final groupMembers = groupData.currentGroup.groupMembers;
 
           return GroupMemberTile(
-            memberName: groupMembers[index].memberName,
-            isAdmin: true, //groupMembers[index].isAdmin,
-          );
+              memberName: groupMembers[index].memberName,
+              isAdmin: groupMembers[index].isAdmin);
         },
         itemCount: groupData.memberCount,
       );
