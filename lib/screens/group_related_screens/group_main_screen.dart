@@ -4,6 +4,7 @@ import 'package:publist/constants.dart';
 import 'package:publist/models/group_data.dart';
 import 'package:publist/screens/group_related_screens/member_management_screen.dart';
 import 'package:publist/widgets/group_related_widgets/group_main_list.dart';
+import 'package:publist/screens/group_related_screens/group_settings_screen.dart';
 
 class GroupMainScreen extends StatefulWidget {
   static const String id = 'group_main_screen';
@@ -107,13 +108,38 @@ class _GroupMainScreenState extends State<GroupMainScreen> {
                         SizedBox(
                           width: 8,
                         ),
-                        CircleAvatar(
-                          backgroundColor: kMainThemeColor,
-                          child: Icon(
-                            Icons.settings,
-                            size: 24,
-                            color: Colors.white,
+                        GestureDetector(
+                          child: CircleAvatar(
+                            backgroundColor: kMainThemeColor,
+                            child: Icon(
+                              Icons.settings,
+                              size: 24,
+                              color: Colors.white,
+                            ),
                           ),
+                          onTap: () {
+                            showModalBottomSheet(
+                              isScrollControlled: true,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(20),
+                                  topRight: Radius.circular(20),
+                                ),
+                              ),
+                              context: context,
+                              builder: (BuildContext context) =>
+                                  SingleChildScrollView(
+                                child: GroupSettingsScreen(
+                                  currentGroupName:
+                                      Provider.of<GroupData>(context)
+                                          .getGroupName(),
+                                  currentGroupID:
+                                      Provider.of<GroupData>(context)
+                                          .getGroupID(),
+                                ),
+                              ),
+                            );
+                          },
                         ),
                         SizedBox(
                           width: 8,

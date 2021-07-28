@@ -5,7 +5,6 @@ import 'package:flutter/foundation.dart';
 import 'package:publist/models/group.dart';
 import 'dart:collection';
 import 'package:publist/firebase_services/data_service.dart';
-import 'package:publist/enums.dart';
 
 class UserGroupData extends ChangeNotifier {
   final _auth = FirebaseAuth.instance;
@@ -44,13 +43,11 @@ class UserGroupData extends ChangeNotifier {
     for (int temp = 0; temp < userGroupRawData.length; temp++) {
       if (groupID == userGroupRawData[temp].id) {
         index = temp;
-        isAlreadyMember = true;
         break;
       }
     }
 
-    if (index != null && !isAlreadyMember) {
-      //TODO - Invite kabul edildiyse
+    if (!isAlreadyMember) {
       _groups.insert(
         index,
         Group(
@@ -59,7 +56,10 @@ class UserGroupData extends ChangeNotifier {
             groupID: userGroupRawData[index].id),
       );
     }
+    notifyListeners();
   }
+
+  // Future updateGroupInfo
 
   int get groupCount {
     return _groups.length;

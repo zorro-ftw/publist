@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:publist/firebase_services/auth_service.dart';
 import 'package:publist/firebase_services/data_service.dart';
 import 'invite.dart';
@@ -83,32 +84,34 @@ class UserInviteData extends ChangeNotifier {
     for (var memberID in dummy['groupMemberIDs']) {
       if (memberID == _auth.currentUser.uid) {
         isAlreadyMember = true;
+
         break;
       }
     }
+
     if (!isAlreadyMember) {
       dummy['groupMembers'][_auth.currentUser.uid] =
           _auth.currentUser.displayName;
       dummy['groupMemberIDs'].add(_auth.currentUser.uid);
+
       await DataService().updateDataByID(
           collectionPath: 'invites',
-          docID: currentInvite.inviteForID,
+          docID: currentInvite.id,
           field: 'isAccepted',
           value: true);
+
       await DataService().updateDataByID(
           collectionPath: 'groups',
           docID: currentInvite.inviteForID,
           field: 'groupMemberIDs',
           value: dummy['groupMemberIDs']);
+
       await DataService().updateDataByID(
           collectionPath: 'groups',
           docID: currentInvite.inviteForID,
           field: 'groupMembers',
           value: dummy['groupMembers']);
     }
-    //TODO - UI güncellemesi için bir şeyler eklemek gerekecek. getUserGroups() fonksiyonunu modifiye edip onu burada çağırabilirim.
-    print(dummy['groupMembers']);
-    print(dummy['groupMemberIDs']);
 
     for (int i = 0; i < invites.length; i++) {
       if (invites[i].id == currentInvite.id) {

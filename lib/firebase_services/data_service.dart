@@ -64,7 +64,10 @@ class DataService {
 
   Future<void> updateDataByID(
       {String collectionPath, String docID, String field, var value}) async {
-    await firestore.collection(collectionPath).doc(docID).set({field: value});
+    await firestore
+        .collection(collectionPath)
+        .doc(docID)
+        .update({field: value});
     print('DATA GÜNCELLENDİ');
   }
 }

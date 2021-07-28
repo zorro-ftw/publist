@@ -78,6 +78,38 @@ class GroupData extends ChangeNotifier {
     return groupName;
   }
 
+  /// Sadece grup adı ve description için kullanılmalı
+  Future updateGroupInfo(
+      {String groupID, String updatedField, String newValue}) async {
+    await DataService().updateDataByID(
+        collectionPath: 'groups',
+        docID: groupID,
+        field: updatedField,
+        value: newValue);
+    if (updatedField == 'groupName') {
+      currentGroup = Group(
+          groupLists: currentGroup.groupLists,
+          groupID: currentGroup.groupID,
+          groupCreatorID: currentGroup.groupCreatorID,
+          groupMembers: currentGroupMembers,
+          groupAdmins: currentGroup.groupAdmins,
+          name: newValue,
+          description: currentGroup.description,
+          createdAt: currentGroup.createdAt);
+    } else if (updatedField == 'groupDescription') {
+      currentGroup = Group(
+          groupLists: currentGroup.groupLists,
+          groupID: currentGroup.groupID,
+          groupCreatorID: currentGroup.groupCreatorID,
+          groupMembers: currentGroupMembers,
+          groupAdmins: currentGroup.groupAdmins,
+          name: currentGroup.name,
+          description: newValue,
+          createdAt: currentGroup.createdAt);
+    }
+    notifyListeners();
+  }
+
   int get memberCount {
     return currentGroup.groupMembers.length;
   }
