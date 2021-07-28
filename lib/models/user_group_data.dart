@@ -59,7 +59,44 @@ class UserGroupData extends ChangeNotifier {
     notifyListeners();
   }
 
-  // Future updateGroupInfo
+  Future updateGroupInfo(
+      {String groupID, String updatedField, String newValue}) async {
+    userGroupRawData = await DataService().getArrayQuery(
+        queryString: _auth.currentUser.uid,
+        collection: 'groups',
+        field: 'groupMemberIDs');
+
+    int index;
+    for (int temp = 0; temp < userGroupRawData.length; temp++) {
+      if (groupID == userGroupRawData[temp].id) {
+        index = temp;
+        break;
+      }
+    }
+
+    if (updatedField == 'groupName') {
+      _groups[index] = Group(
+          groupLists: _groups[index].groupLists,
+          groupID: _groups[index].groupID,
+          groupCreatorID: _groups[index].groupCreatorID,
+          groupMembers: _groups[index].groupMembers,
+          groupAdmins: _groups[index].groupAdmins,
+          name: newValue,
+          description: _groups[index].description,
+          createdAt: _groups[index].createdAt);
+    } else if (updatedField == 'groupDescription') {
+      _groups[index] = Group(
+          groupLists: _groups[index].groupLists,
+          groupID: _groups[index].groupID,
+          groupCreatorID: _groups[index].groupCreatorID,
+          groupMembers: _groups[index].groupMembers,
+          groupAdmins: _groups[index].groupAdmins,
+          name: _groups[index].name,
+          description: newValue,
+          createdAt: _groups[index].createdAt);
+    }
+    notifyListeners();
+  }
 
   int get groupCount {
     return _groups.length;
