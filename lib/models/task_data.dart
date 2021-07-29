@@ -37,6 +37,10 @@ class TaskData extends ChangeNotifier {
     task.activateTask();
     notifyListeners();
   }
+  void setDateTime(Task task,DateTime dateTime) {
+    task.setDateTime(dateTime);
+    notifyListeners();
+  }
 
   void deleteTask(Task task) {
     _tasks.remove(task);

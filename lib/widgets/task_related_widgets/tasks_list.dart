@@ -27,6 +27,9 @@ class TasksList extends StatelessWidget {
               triggerActivate: () {
                 taskData.triggerActivate(task);
               },
+              setDateTime:(dateTime)  {
+                taskData.setDateTime(task,dateTime);
+              },
             );
           },
           itemCount: taskData.taskCount,

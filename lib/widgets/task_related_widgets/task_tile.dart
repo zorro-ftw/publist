@@ -9,7 +9,16 @@ class TaskTile extends StatelessWidget {
   final Function triggerFail;
   final Function triggerDelete;
   final Function triggerActivate;
+  final Function setDateTime;
   // final trailingIcon = if(taskStatus==TaskStatus.active)
+  Future pickDateTime(BuildContext context)async{
+  final date=await showDatePicker(context: context, initialDate: DateTime.now(), firstDate:DateTime(DateTime.now().year-3), lastDate:DateTime(DateTime.now().year+3));
+  if (date==null) return;
+  final time=await showTimePicker(context: context, initialTime: TimeOfDay.now());
+  if (time==null) return;
+  DateTime dateTime=DateTime(date.year,date.month,date.day,time.hour,time.minute);
+  setDateTime(dateTime);
+  }
 
   TaskTile(
       {this.taskStatus,
@@ -17,7 +26,8 @@ class TaskTile extends StatelessWidget {
       this.triggerSuccess,
       this.triggerFail,
       this.triggerDelete,
-      this.triggerActivate});
+      this.triggerActivate,
+      this.setDateTime});
 
   List<Widget> getActions(TaskStatus taskStatus) {
     if (taskStatus == TaskStatus.active) {
@@ -78,11 +88,18 @@ class TaskTile extends StatelessWidget {
       actionExtentRatio: taskStatus == TaskStatus.active ? 0.20 : 0.30,
       actions: [
         IconSlideAction(
+          caption: 'Attachment',
+          color: Colors.blueGrey,
+          icon: Icons.attach_file,
+          foregroundColor: Colors.white,
+        ),
+        IconSlideAction(
           caption: 'Reminder',
           color: Colors.lightBlue,
           icon: Icons.alarm,
           foregroundColor: Colors.white,
-        )
+          onTap:()=>pickDateTime(context),
+        ),
       ],
       secondaryActions: getActions(taskStatus),
       child: ListTile(
