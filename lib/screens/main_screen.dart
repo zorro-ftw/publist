@@ -18,7 +18,7 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: DefaultTabController(
-        length: 3,
+        length: 2,
         child: Scaffold(
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(85),
@@ -34,9 +34,6 @@ class _MainScreenState extends State<MainScreen> {
                   ),
                   Tab(
                     text: 'Groups',
-                  ),
-                  Tab(
-                    text: 'Lists',
                   ),
                 ],
               ),
@@ -57,7 +54,6 @@ class _MainScreenState extends State<MainScreen> {
               ),
               // GroupScreen(),
               GroupsListedScreen(),
-              Icon(Icons.directions_bike)
             ],
           ),
         ),

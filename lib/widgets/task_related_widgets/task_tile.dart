@@ -10,14 +10,20 @@ class TaskTile extends StatelessWidget {
   final Function triggerDelete;
   final Function triggerActivate;
   final Function setDateTime;
-  // final trailingIcon = if(taskStatus==TaskStatus.active)
-  Future pickDateTime(BuildContext context)async{
-  final date=await showDatePicker(context: context, initialDate: DateTime.now(), firstDate:DateTime(DateTime.now().year-3), lastDate:DateTime(DateTime.now().year+3));
-  if (date==null) return;
-  final time=await showTimePicker(context: context, initialTime: TimeOfDay.now());
-  if (time==null) return;
-  DateTime dateTime=DateTime(date.year,date.month,date.day,time.hour,time.minute);
-  setDateTime(dateTime);
+
+  Future pickDateTime(BuildContext context) async {
+    final date = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(DateTime.now().year - 3),
+        lastDate: DateTime(DateTime.now().year + 3));
+    if (date == null) return;
+    final time =
+        await showTimePicker(context: context, initialTime: TimeOfDay.now());
+    if (time == null) return;
+    DateTime dateTime =
+        DateTime(date.year, date.month, date.day, time.hour, time.minute);
+    setDateTime(dateTime);
   }
 
   TaskTile(
@@ -98,7 +104,7 @@ class TaskTile extends StatelessWidget {
           color: Colors.lightBlue,
           icon: Icons.alarm,
           foregroundColor: Colors.white,
-          onTap:()=>pickDateTime(context),
+          onTap: () => pickDateTime(context),
         ),
       ],
       secondaryActions: getActions(taskStatus),
@@ -133,8 +139,3 @@ Widget getTrailingIcon(TaskStatus taskStatus) {
     );
   }
 }
-
-// Checkbox(
-// activeColor: Color(0xFFCE9F35),
-// value: isChecked,
-// onChanged: checkboxCallback,

@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:publist/constants.dart';
 import 'package:publist/models/group_data.dart';
+import 'package:publist/screens/group_related_screens/add_group_task_screen.dart';
 import 'package:publist/screens/group_related_screens/member_management_screen.dart';
-import 'package:publist/widgets/group_related_widgets/group_main_list.dart';
+import 'package:publist/widgets/group_related_widgets/group_main_task_list.dart';
 import 'package:publist/screens/group_related_screens/group_settings_screen.dart';
+import 'package:publist/models/group_task_data.dart';
 
 class GroupMainScreen extends StatefulWidget {
   static const String id = 'group_main_screen';
@@ -17,13 +19,6 @@ class GroupMainScreen extends StatefulWidget {
 }
 
 class _GroupMainScreenState extends State<GroupMainScreen> {
-  @override
-  void initState() {
-    super.initState();
-    // Provider.of<GroupData>(context, listen: false)
-    //     .getGroupDataByGroupID(widget.groupID);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +40,22 @@ class _GroupMainScreenState extends State<GroupMainScreen> {
           backgroundColor: kMainThemeColor,
           child: Icon(Icons.add),
           onPressed: () {
-            //TODO Yeni grup listesi oluşturma eklenecek.
+            //TODO Yeni grup task oluşturma eklenecek.
+
+            showModalBottomSheet(
+              isScrollControlled: true,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20),
+                ),
+              ),
+              context: context,
+              builder: (BuildContext context) => SingleChildScrollView(
+                  child: AddGroupTaskScreen(
+                groupID: widget.groupID,
+              )),
+            );
           }),
       backgroundColor: Colors.white,
       body: Column(
@@ -163,7 +173,7 @@ class _GroupMainScreenState extends State<GroupMainScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      '${Provider.of<GroupData>(context).listCount} Lists',
+                      '${Provider.of<GroupTaskData>(context).taskCount} Tasks',
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 18.0,
@@ -178,7 +188,7 @@ class _GroupMainScreenState extends State<GroupMainScreen> {
           Expanded(
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 8.0),
-              child: GroupMainList(),
+              child: GroupMainTaskList(),
             ),
           ),
         ],

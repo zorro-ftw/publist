@@ -20,6 +20,7 @@ class _TodayScreenState extends State<TodayScreen> {
 
   @override
   void initState() {
+    Provider.of<TaskData>(context, listen: false).getUserTasks();
     super.initState();
     getDate(widget.now);
   }

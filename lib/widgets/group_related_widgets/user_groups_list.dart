@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:publist/models/group_task_data.dart';
 import 'package:publist/models/user_group_data.dart';
 import 'package:publist/screens/group_related_screens/group_main_screen.dart';
 import 'package:publist/widgets/group_related_widgets/group_tile.dart';
@@ -23,6 +24,8 @@ class UserGroupsList extends StatelessWidget {
               onTapCallback: () async {
                 await Provider.of<GroupData>(context, listen: false)
                     .getGroupDataByGroupID(group.groupID);
+                Provider.of<GroupTaskData>(context, listen: false)
+                    .getGroupTasks(currentGroupID: group.groupID);
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                   return GroupMainScreen(groupID: group.groupID);
                 }));

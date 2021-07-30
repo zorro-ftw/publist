@@ -48,7 +48,8 @@ class DataService {
       {String queryString, String collection, String field}) async {
     final queryOutputData = await firestore
         .collection(collection)
-        .where(field, isGreaterThanOrEqualTo: queryString)
+        .where(field, isEqualTo: queryString)
+        .orderBy('createdAt', descending: false)
         .get();
 
     return queryOutputData.docs;
