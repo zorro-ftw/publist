@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:publist/constants.dart';
 import 'package:publist/models/group_data.dart';
+import 'package:publist/screens/chat_screen.dart';
 import 'package:publist/screens/group_related_screens/add_group_task_screen.dart';
 import 'package:publist/screens/group_related_screens/member_management_screen.dart';
 import 'package:publist/widgets/group_related_widgets/group_main_task_list.dart';
 import 'package:publist/screens/group_related_screens/group_settings_screen.dart';
 import 'package:publist/models/group_task_data.dart';
+
 
 class GroupMainScreen extends StatefulWidget {
   static const String id = 'group_main_screen';
@@ -156,10 +158,21 @@ class _GroupMainScreenState extends State<GroupMainScreen> {
                         ),
                         CircleAvatar(
                           backgroundColor: kMainThemeColor,
-                          child: Icon(
-                            Icons.chat,
-                            size: 24,
-                            color: Colors.white,
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.chat,
+                              size: 24,
+                              color: Colors.white,
+                            ),
+                            onPressed: (){
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                    ChatScreen(),
+                                ),
+                              );
+                            },
                           ),
                         )
                       ],

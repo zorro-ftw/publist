@@ -8,8 +8,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:publist/enums.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'add_task_screen.dart';
-import 'user_data.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 class ProfileScreen extends StatefulWidget {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:publist/constants.dart';
 import 'package:publist/enums.dart';
 
 class TaskTile extends StatelessWidget {
@@ -16,10 +17,37 @@ class TaskTile extends StatelessWidget {
         context: context,
         initialDate: DateTime.now(),
         firstDate: DateTime(DateTime.now().year - 3),
-        lastDate: DateTime(DateTime.now().year + 3));
+        lastDate: DateTime(DateTime.now().year + 3),
+        builder: (BuildContext context, Widget child) {
+          return Theme(
+            data: ThemeData.light().copyWith(
+              colorScheme: ColorScheme.fromSwatch(
+                primarySwatch: Colors.orange,
+                primaryColorDark: Colors.orange,
+                accentColor: Colors.orange,
+              ),
+              dialogBackgroundColor:Colors.white,
+            ),
+            child: child,
+          );
+        },
+    );
     if (date == null) return;
     final time =
-        await showTimePicker(context: context, initialTime: TimeOfDay.now());
+        await showTimePicker(context: context, initialTime: TimeOfDay.now(),
+          builder: (BuildContext context, Widget child) {
+            return Theme(
+              data: ThemeData.light().copyWith(
+                colorScheme: ColorScheme.fromSwatch(
+                  primarySwatch: Colors.orange,
+                  primaryColorDark: Colors.orange,
+                  accentColor: Colors.orange,
+                ),
+                dialogBackgroundColor:Colors.white,
+              ),
+              child: child,
+            );
+          },);
     if (time == null) return;
     DateTime dateTime =
         DateTime(date.year, date.month, date.day, time.hour, time.minute);

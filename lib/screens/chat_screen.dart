@@ -43,8 +43,8 @@ class _ChatScreenState extends State<ChatScreen> {
                 //Implement logout functionality
               }),
         ],
-        title: Text('⚡️Chat'),
-        backgroundColor: Colors.lightBlueAccent,
+        title: Text('️Chat'),
+        backgroundColor: kMainThemeColor,
       ),
       body: SafeArea(
         child: Column(

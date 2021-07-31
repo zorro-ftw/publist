@@ -76,8 +76,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     final user =
                         await _auth.signInWithEmailAndPassword(email, password);
                     if (user != null) {
-                      Navigator.pushNamed(context, MainScreen.id);
-                      print(user.user.emailVerified);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return MainScreen();
+                          },
+                        ),
+                      );
                     }
                     setState(() {
                       showSpinner = false;
@@ -106,8 +112,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   try {
                     final user = await _auth.signInWithGoogle();
                     if (user != null) {
-                      Navigator.pushNamed(context, MainScreen.id);
-                      print(user.user.emailVerified);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return MainScreen();
+                          },
+                        ),
+                      );
                     }
                     setState(() {
                       showSpinner = false;
@@ -133,9 +145,18 @@ class _LoginScreenState extends State<LoginScreen> {
                 //color: Color(0xFFD08933),
                 onPressed: () async {
                   try {
+                    print("on pressed girdi");
                     final user = await _auth.signInWithFacebook();
                     if (user != null) {
-                      Navigator.pushNamed(context, MainScreen.id);
+                      print("user aldı");
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return MainScreen();
+                          },
+                        ),
+                      );
                     }
                     setState(() {
                       showSpinner = false;
