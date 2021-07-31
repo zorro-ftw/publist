@@ -14,10 +14,50 @@ import 'package:publist/models/group_data.dart';
 import 'package:publist/screens/user_data.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:publist/models/group_task_data.dart';
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin=FlutterLocalNotificationsPlugin();
+  const AndroidInitializationSettings initializationSettingsAndroid =
+  AndroidInitializationSettings('@mipmap/ic_launcher');
+
+  final IOSInitializationSettings initializationSettingsIOS =
+  IOSInitializationSettings(
+      requestAlertPermission: true,
+      requestBadgePermission: true,
+      requestSoundPermission: true,
+      onDidReceiveLocalNotification: (
+          int id,
+          String title,
+          String body,
+          String payload,
+          ) async {});
+  const MacOSInitializationSettings initializationSettingsMacOS =
+  MacOSInitializationSettings(
+    requestAlertPermission: false,
+    requestBadgePermission: false,
+    requestSoundPermission: false,
+  );
+
+  final InitializationSettings initializationSettings = InitializationSettings(
+    android: initializationSettingsAndroid,
+    iOS: initializationSettingsIOS,
+    macOS: initializationSettingsMacOS,
+  );
+  await flutterLocalNotificationsPlugin.initialize(initializationSettings,
+      onSelectNotification: (String payload) async {
+        if (payload != null) {
+          debugPrint('notification payload: $payload');
+        }
+      });
+  tz.initializeTimeZones();
+  tz.setLocalLocation(tz.getLocation("America/Los_Angeles"));
+
   runApp(Publist());
 }
 

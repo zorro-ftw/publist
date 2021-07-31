@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:publist/constants.dart';
+import 'package:timezone/timezone.dart' as tz;
 import 'package:publist/enums.dart';
 
 class TaskTile extends StatelessWidget {
@@ -11,7 +12,23 @@ class TaskTile extends StatelessWidget {
   final Function triggerDelete;
   final Function triggerActivate;
   final Function setDateTime;
+  final FlutterLocalNotificationsPlugin fltrNotification=FlutterLocalNotificationsPlugin();
 
+
+  Future _showNotificaton(DateTime dateTime) async {
+    var androidDetails=new AndroidNotificationDetails("channelID", "channelName", "channelDescription",importance: Importance.max);
+    var iosDetails=new IOSNotificationDetails();
+    var generalNotificationDetails=new NotificationDetails(android:androidDetails,iOS: iosDetails);
+    var time2 = tz.TZDateTime(
+      tz.local,
+      dateTime.year,
+      dateTime.month,
+      dateTime.day,
+      dateTime.hour,
+      dateTime.minute,
+    );
+    await fltrNotification.zonedSchedule(0, "$taskTitle", "Time for $taskTitle", time2, generalNotificationDetails,  androidAllowWhileIdle: true);
+  }
   Future pickDateTime(BuildContext context) async {
     final date = await showDatePicker(
         context: context,
@@ -51,6 +68,7 @@ class TaskTile extends StatelessWidget {
     if (time == null) return;
     DateTime dateTime =
         DateTime(date.year, date.month, date.day, time.hour, time.minute);
+    _showNotificaton(dateTime);
     setDateTime(dateTime);
   }
 
